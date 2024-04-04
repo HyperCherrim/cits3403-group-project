@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div class="centerBox">
+        <h1>
+            Create User Page
+        </h1>
+        <br>
+        <form action="/crteateNewUser">
+            <!-- could do some validation becausee they would be student emails -->
+            <label for="email">Student Email:</label><br>
+            <input type="text" id="studentEmail" name="studentEmail"><br>
+            <!-- need to add some client side java for validation to make sure that the passwords match-->
+            <label for="Password">Password:</label><br>
+            <input type="password" id="studentPassword" name="studentPassword"><br>
+            <label for="Password">Confirm Password:</label><br>
+            <input type="password" id="studentPassword" name="studentPassword"><br>
+            <a id="forgot-password" href="./user_login.html">already have an account?</a><br>
+            <!-- submit button to send info to the server about the new user it is disabled untile the password and emails are correct-->
+            <input type="submit" value="Sign In" disabled>
+        </form>
+    </div>
+</body>
+</html>
