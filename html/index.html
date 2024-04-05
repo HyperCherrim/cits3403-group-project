@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Home - Study Groups Organiser</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+    <script src='main.js'></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Utilising Bootstrap in order to generate the navbar (less annoying than dealing with it through HTML) -->
+    <style>
+        .navbarColouring {
+            background-color: #00ff0096
+        }
+        .containerResize {
+            width: 66%;
+        }
+        table {
+            align-self:center;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Set up the navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbarColouring">
+        <!-- In this case, the "logo" is just text for the time being -->
+        <a class="navbar-brand navbar-text" href="index.html" style="margin-left:30px">Study Group Organiser</a>
+        <!-- Shrink the menu to a dropdown on smaller screens - non-functional for now (will sort this at some point) -->
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="collapsedMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsedMenu">
+            <ul class="navbar-nav justify-content-center">
+                <!-- Search field (will not f***ing listen to alignment commands) -->
+                
+                <!-- Account settings -->
+                <li class="pull-right">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Account Options</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Login</a></li>
+                        <li><a class="dropdown-item disabled" href="#">My Account</a>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex justify-content-center"> 
+                <input class="form-control me-2" type="text" placeholder="Enter unit code here: ">
+                <button class="btn btn-primary" type="button">Search!</button>
+            </form>
+        </div>
+        
+    </nav>
+    <div class="container buttonArea d-flex justify-content-center" style="padding-top:100px; padding-bottom:70px">
+        <form class="buttonForm">
+            <button type="button" class="btn btn-primary" onclick="location.href='#'">View Tags</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='#'">Submit a Request</button> <!-- These buttons are not linking anywhere just yet (due to said pages not existing) -->
+        </form>
+    </div>
+    <div class="container studyGroups">
+        <h3 style="align-items:center">Study Groups</h3>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Unit Name</th>
+                    <th>Group Description</th>
+                    <th>Available Times</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CITS2200</td>
+                    <td>DSA Test 1 - Revision Sessions</td>
+                    <td>Friday 5/04 2:00pm-6:00pm</td>
+                </tr>
+                <tr>
+                    <td>CITS1401</td>
+                    <td>Project 1 Discussion Group</td>
+                    <td>Thursday 4/04 10:00am-4:00pm</td>
+                </tr>
+                <tr>
+                    <td>MATH1721</td>
+                    <td>What are Functions? A Basic Guide</td>
+                    <td>Sunary 7/04 11:00am-12:00pm</td>
+                </tr>
+            </tbody>
+        </table>
+        <p> This is just a dummy table since we don't have any way to import study groups yet.</p>
+    </div>
+</body>
+</html>
