@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -35,10 +35,7 @@
         <div class="collapse navbar-collapse" id="collapsedMenu">
             <ul class="navbar-nav justify-content-center">
                 <!-- Search field (will not f***ing listen to alignment commands) -->
-                <form class="d-flex justify-content-center"> 
-                    <input class="form-control me-2" type="text" placeholder="Enter unit code here: ">
-                    <button class="btn btn-primary" type="button">Search!</button>
-                </form>
+                
                 <!-- Account settings -->
                 <li class="pull-right">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Account Options</a>
@@ -47,20 +44,22 @@
                         <li><a class="dropdown-item disabled" href="#">My Account</a>
                     </ul>
                 </li>
-            </li>
-                
             </ul>
+            <form class="d-flex justify-content-center"> 
+                <input class="form-control me-2" type="text" placeholder="Enter unit code here: ">
+                <button class="btn btn-primary" type="button">Search!</button>
+            </form>
         </div>
         
     </nav>
     <div class="container buttonArea d-flex justify-content-center" style="padding-top:100px; padding-bottom:70px">
         <form class="buttonForm">
-            <a href="#"><button type="button" class="btn btn-primary">View Tags</button></a>
-            <a href="#"><button type="button" class="btn btn-primary">Submit a Request</button></a> <!-- These buttons are not linking anywhere just yet (due to said pages not existing) -->
+            <button type="button" class="btn btn-primary" onclick="location.href='#'">View Tags</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='#'">Submit a Request</button> <!-- These buttons are not linking anywhere just yet (due to said pages not existing) -->
         </form>
     </div>
     <div class="container studyGroups">
-        <h1 style="align-items:center">Study Groups</h3>
+        <h3 style="align-items:center">Study Groups</h3>
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
