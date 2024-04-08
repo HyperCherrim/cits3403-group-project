@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -15,10 +15,11 @@
         </h1>
         <br>
         <form action="/submitEmail">
-            <label for="email">Student Email:</label><br>
-            <input type="text" id="studentEmail" name="studentEmail"><br>
-            <label for="Password">Password:</label><br>
+            <!-- Changed IDs to match the input fields to fix validator issues -->
+            <input type="text" id="studentEmail" name="studentEmail"><br> 
+            <label for="studentEmail">Student Email:</label><br>
             <input type="password" id="studentPassword" name="studentPassword"><br>
+            <label for="studentPassword">Password:</label><br>
             <a id="forgot-password" href="./password_reset.html">forgot your password?</a><br>
             <!-- submit button to send info to the server -->
             <input type="submit" value="Sign In">
