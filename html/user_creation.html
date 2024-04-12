@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -13,16 +13,16 @@
         <h1>
             Create User Page
         </h1>
-        <br>
+        <br> <!-- Changed IDs in the <label> tag to match the valid input -->
         <form action="/crteateNewUser">
             <!-- could do some validation becausee they would be student emails -->
-            <label for="email">Student Email:</label><br>
             <input type="text" id="studentEmail" name="studentEmail"><br>
+            <label for="studentEmail">Student Email:</label><br>
             <!-- need to add some client side java for validation to make sure that the passwords match-->
-            <label for="Password">Password:</label><br>
             <input type="password" id="studentPassword" name="studentPassword"><br>
-            <label for="Password">Confirm Password:</label><br>
-            <input type="password" id="studentPassword" name="studentPassword"><br>
+            <label for="studentPassword">Password:</label><br>
+            <input type="password" id="confirmPassword" name="studentPassword"><br>
+            <label for="confirmPassword">Confirm Password:</label><br>
             <a id="forgot-password" href="./user_login.html">already have an account?</a><br>
             <!-- submit button to send info to the server about the new user it is disabled untile the password and emails are correct-->
             <input type="submit" value="Sign In" disabled>
