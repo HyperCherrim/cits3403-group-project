@@ -1,0 +1,66 @@
+#CreateStudyGroupFormTitle {
+    margin: auto;
+    position: relative;
+    align-items: center;
+}
+
+#CreateStudyGroupFormTag1 {
+    margin: auto;
+    position: absolute;
+}
+
+#CreateStudyGroupFormTag2 {
+    margin: auto;
+    position: absolute;
+}
+
+#CreateStudyGroupFormTag3 {
+    margin: auto;
+    position: absolute;
+}
+
+#CreateStudyGroupFormDescription {
+    margin: auto;
+    position: relative;
+    align-items: center;
+    padding: 100px;
+}
+
+#CreateStudyGroupFormDescription {
+    margin: auto;
+    position: relative;
+    font-size: 10vw;
+}
+
+#CreateStudyGroupFormDatesStart {
+    margin: auto;
+    position: relative;
+    font-size: 10vw;
+
+}
+
+#CreateStudyGroupFormDatesEnd {
+    margin: auto;
+    position: relative;
+    font-size: 10vw;
+}
+
+#CreateStudyGroupFormDatesAdd {
+    margin: auto;
+    position: relative;
+    font-size: 10vw;
+}
+
+input:invalid + span::after {
+    color:red;
+    background-color:red;
+    content: "✖";
+    padding-left: 5px;
+}
+  
+  input:valid + span::after {
+    color:green;
+    background-color:green;
+    content: "✓";
+    padding-left: 5px;
+}
