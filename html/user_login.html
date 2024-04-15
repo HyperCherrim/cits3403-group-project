@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/login.css'>
     <script src='main.js'></script>
 </head>
 <body>
@@ -16,11 +16,13 @@
         <br>
         <form action="/submitEmail">
             <!-- Changed IDs to match the input fields to fix validator issues -->
-            <input type="text" id="studentEmail" name="studentEmail"><br> 
             <label for="studentEmail">Student Email:</label><br>
-            <input type="password" id="studentPassword" name="studentPassword"><br>
+            <input type="text" id="studentEmail" name="studentEmail"><br> 
             <label for="studentPassword">Password:</label><br>
-            <a id="forgot-password" href="./password_reset.html">forgot your password?</a><br>
+            <input type="password" id="studentPassword" name="studentPassword"><br>
+            <div class="linkNextPage">
+                <a id="forgot-password" href="./password_reset.html">forgot your password?</a><br>
+            </div>
             <!-- submit button to send info to the server -->
             <input type="submit" value="Sign In">
         </form>
