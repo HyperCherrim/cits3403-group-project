@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Group 1</h1> <!-- H1s apparently cannot be in the header-->
+        <h3>Availability</h3>
+        <label for="CreateStudyGroupFormDatesStart"> Availability Start </label> <br>
+        <input type="datetime-local" id="CreateStudyGroupFormDatesStart" name="CreateStudyGroupFormDatesStart">
+        <br>
+        <label for="CreateStudyGroupFormDatesEnd"> Availability End </label> <br>
+        <input type="datetime-local" id="CreateStudyGroupFormDatesEnd" name="CreateStudyGroupFormDatesEnd">
+        <br>
+        <label for="CreateStudyGroupFormDatesAdd"> Add range to availability</label> <br>
+        <input type="button" id="CreateStudyGroupFormDatesAdd" value="Add">
+        <br>
+
+        <h3>
+            Message
+        </h3>
+
+        <input type="text">
+
+        <br>
+        <br>
+
+        <button>
+        Join
+        </button>
+        <button>
+            Go Back
+        </button>
+
+{% endblock %}

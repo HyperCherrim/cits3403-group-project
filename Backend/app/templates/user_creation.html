@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="centerBox">
+    <div class="header">
+        <h1>
+            Create User Page
+        </h1>
+    </div>
+    <br> <!-- Changed IDs in the <label> tag to match the valid input -->
+    <form action="/crteateNewUser">
+        <!-- could do some validation becausee they would be student emails -->
+        <label for="studentEmail">Student Email:</label><br>
+        <input type="text" id="studentEmail" name="studentEmail"><br>
+        <!-- need to add some client side java for validation to make sure that the passwords match-->
+        <label for="studentPassword">Password:</label><br>
+        <input type="password" id="studentPassword" name="studentPassword"><br>
+        <label for="confirmPassword">Confirm Password:</label><br>
+        <input type="password" id="confirmPassword" name="studentPassword"><br>
+        <div class="linkNextPage">
+            <a id="forgot-password" href="./user_login.html">already have an account?</a><br>
+        </div>
+        <!-- submit button to send info to the server about the new user it is disabled untile the password and emails are correct-->
+        <input type="submit" value="Sign In" disabled>
+    </form>
+</div>
+
+{% endblock %}
