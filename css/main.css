@@ -29,26 +29,26 @@
 #CreateStudyGroupFormDescription {
     margin: auto;
     position: relative;
-    font-size: 10vw;
+    font-size: 10;
 }
 
 #CreateStudyGroupFormDatesStart {
     margin: auto;
     position: relative;
-    font-size: 10vw;
+    font-size: 10;
 
 }
 
 #CreateStudyGroupFormDatesEnd {
     margin: auto;
     position: relative;
-    font-size: 10vw;
+    font-size: 10;
 }
 
 #CreateStudyGroupFormDatesAdd {
     margin: auto;
     position: relative;
-    font-size: 10vw;
+    font-size: 10;
 }
 
 input:invalid + span::after {
@@ -68,19 +68,19 @@ input:invalid + span::after {
 #CreateStudyGroupFormDatesStart {
     margin: auto;
     position: relative;
-    font-size: 10vw;
+    font-size: 10;
 }
 
 #CreateStudyGroupFormDatesEnd {
     margin: auto;
     position: relative;
-    font-size: 10vw;
+    font-size: 10;
 }
 
 #CreateStudyGroupFormDatesAdd {
     margin: auto;
     position: relative;
-    font-size: 10vw;
+    font-size: 10;
 }
 
 input:invalid + span::after {
