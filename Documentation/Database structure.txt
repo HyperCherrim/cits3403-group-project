@@ -1,0 +1,38 @@
+CREATE TABLE users (
+    Email        TEXT PRIMARY KEY,
+    Password     TEXT NOT NULL,
+    CreationDate TEXT,
+    Username     TEXT NOT NULL
+);
+
+CREATE TABLE requests (
+    ID           INTEGER PRIMARY KEY AUTOINCREMENT,
+    User         TEXT,
+    CreationDate TEXT,
+    Tag1         TEXT    NOT NULL,
+    Tag2         TEXT,
+    Tag3         TEXT,
+    Avalibility  TEXT    NOT NULL,
+    NumRequired  INTEGER NOT NULL,
+    FOREIGN KEY (
+        User
+    )
+    REFERENCES users (Email) 
+);
+
+CREATE TABLE replys (
+    ID           INTEGER PRIMARY KEY AUTOINCREMENT,
+    User         TEXT,
+    ReplyingTo   INTEGER,
+    message      TEXT,
+    CreationDate INTEGER,
+    avalibility  TEXT,
+    FOREIGN KEY (
+        User
+    )
+    REFERENCES users (Email),
+    FOREIGN KEY (
+        replyingTo
+    )
+    REFERENCES requests (ID) 
+);
