@@ -51,16 +51,16 @@
     font-size: 10;
 }
 
-input:invalid + span::after {
-    color:red;
-    background-color:red;
+input:invalid+span::after {
+    color: red;
+    background-color: red;
     content: "✖";
     padding-left: 5px;
 }
-  
-  input:valid + span::after {
-    color:green;
-    background-color:green;
+
+input:valid+span::after {
+    color: green;
+    background-color: green;
     content: "✓";
     padding-left: 5px;
 }
@@ -83,16 +83,28 @@ input:invalid + span::after {
     font-size: 10;
 }
 
-input:invalid + span::after {
-    color:red;
-    background-color:red;
+input:invalid+span::after {
+    color: red;
+    background-color: red;
     content: "✖";
     padding-left: 5px;
 }
-  
-  input:valid + span::after {
-    color:green;
-    background-color:green;
+
+input:valid+span::after {
+    color: green;
+    background-color: green;
     content: "✓";
     padding-left: 5px;
+}
+
+.navbarColouring {
+    background-color: #00ff0096
+}
+
+.containerResize {
+    width: 66%;
+}
+
+table {
+    align-self: center;
 }

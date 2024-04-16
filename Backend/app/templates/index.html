@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="container buttonArea d-flex justify-content-center" style="padding-top:100px; padding-bottom:70px">
+    <form class="buttonForm">
+        <button type="button" class="btn btn-primary" onclick="location.href='#'">View Tags</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='#'">Submit a Request</button> <!-- These buttons are not linking anywhere just yet (due to said pages not existing) -->
+    </form>
+</div>
+<div class="container studyGroups">
+    <h3 style="align-items:center">Study Groups</h3>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Unit Name</th>
+                <th>Group Description</th>
+                <th>Available Times</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>CITS2200</td>
+                <td>DSA Test 1 - Revision Sessions</td>
+                <td>Friday 5/04 2:00pm-6:00pm</td>
+            </tr>
+            <tr>
+                <td>CITS1401</td>
+                <td>Project 1 Discussion Group</td>
+                <td>Thursday 4/04 10:00am-4:00pm</td>
+            </tr>
+            <tr>
+                <td>MATH1721</td>
+                <td>What are Functions? A Basic Guide</td>
+                <td>Sunary 7/04 11:00am-12:00pm</td>
+            </tr>
+        </tbody>
+    </table>
+    <p> This is just a dummy table since we don't have any way to import study groups yet.</p>
+</div>
+
+
+
+{% endblock %}
