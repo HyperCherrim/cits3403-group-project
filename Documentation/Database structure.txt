@@ -1,7 +1,8 @@
 CREATE TABLE users (
     Email        TEXT PRIMARY KEY,
     Password     TEXT NOT NULL,
-    CreationDate TEXT
+    CreationDate TEXT,
+    Username     TEXT NOT NULL
 );
 
 CREATE TABLE requests (
