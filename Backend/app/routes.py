@@ -3,8 +3,11 @@ from app import app
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'username': 'Miguel'}
-    return render_template("index.html",title="Study Group maker",user=user)
+    user = {'username': 'Debug User'}
+    availableGroups = [{"unit":"CITS2200: Data Structures and Algorithms"}, 
+                       {"unit":"CITS1003: Introduction to Cybersecurity"}, 
+                       {"unit":"MATH1721: Mathematics Foundations: Methods"}] # Populate this later once options for new tags are added
+    return render_template("index.html",title="Study Group maker",user=user,groups=availableGroups)
 
 @app.route('/making_request')
 def making_request():

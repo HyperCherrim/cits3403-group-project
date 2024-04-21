@@ -14,7 +14,7 @@
         <label for="studentPassword">Password:</label><br>
         <input type="password" id="studentPassword" name="studentPassword"><br>
         <div class="linkNextPage">
-            <a id="forgot-password" href="./password_reset.html">forgot your password?</a><br>
+            <a id="forgot-password" href='{{ url_for("password_reset") }}'>forgot your password?</a><br>
         </div>
         <!-- submit button to send info to the server -->
         <input type="submit" value="Sign In">
