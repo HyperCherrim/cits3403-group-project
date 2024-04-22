@@ -1,102 +1,3 @@
-#CreateStudyGroupFormTitle {
-    margin: auto;
-    position: relative;
-    align-items: center;
-}
-
-#CreateStudyGroupFormTag1 {
-    margin: auto;
-    position: absolute;
-}
-
-#CreateStudyGroupFormTag2 {
-    margin: auto;
-    position: absolute;
-}
-
-#CreateStudyGroupFormTag3 {
-    margin: auto;
-    position: absolute;
-}
-
-#CreateStudyGroupFormDescription {
-    margin: auto;
-    position: relative;
-    align-items: center;
-    padding: 100px;
-}
-
-#CreateStudyGroupFormDescription {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-}
-
-#CreateStudyGroupFormDatesStart {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-
-}
-
-#CreateStudyGroupFormDatesEnd {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-}
-
-#CreateStudyGroupFormDatesAdd {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-}
-
-input:invalid+span::after {
-    color: red;
-    background-color: red;
-    content: "✖";
-    padding-left: 5px;
-}
-
-input:valid+span::after {
-    color: green;
-    background-color: green;
-    content: "✓";
-    padding-left: 5px;
-}
-
-#CreateStudyGroupFormDatesStart {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-}
-
-#CreateStudyGroupFormDatesEnd {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-}
-
-#CreateStudyGroupFormDatesAdd {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-}
-
-input:invalid+span::after {
-    color: red;
-    background-color: red;
-    content: "✖";
-    padding-left: 5px;
-}
-
-input:valid+span::after {
-    color: green;
-    background-color: green;
-    content: "✓";
-    padding-left: 5px;
-}
-
 .navbarColouring {
     background-color: #00ff0096
 }
@@ -107,4 +8,93 @@ input:valid+span::after {
 
 table {
     align-self: center;
+}
+
+.Searchbar {
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+
+body {
+    text-align: center;
+}
+
+#CreateStudyGroupFormTitle {
+    margin: auto;
+    position: relative;
+    align-items: center;
+    display: flex;
+    
+}
+
+#CreateStudyGroupFormTag1 {
+    margin: auto;
+    position: absolute;
+    transform: translate(-155%);
+}
+
+#CreateStudyGroupFormTag2 {
+    margin: auto;
+    position: absolute;
+    transform: translate(-50%);
+}
+
+#CreateStudyGroupFormTag3 {
+    margin: auto;
+    position: absolute;
+    transform: translate(55%);
+}
+
+#CreateStudyGroupFormDescription {
+    margin: auto;
+    position: relative;
+    align-items: center;
+    padding: 60px;
+    font-size: 10;
+    display: flex;
+}
+
+
+#CreateStudyGroupFormDatesStart {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+
+}
+
+#CreateStudyGroupFormDatesEnd {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+#CreateStudyGroupFormDatesAdd {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+#CreateStudyGroupFormSubmit {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+input:invalid + span::after {
+    color:red;
+    background-color:red;
+    content: "✖";
+    padding-left: 5px;
+}
+  
+  input:valid + span::after {
+    color:green;
+    background-color:green;
+    content: "✓";
+    padding-left: 5px;
 }
