@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="centerBox">
+    <h1>
+        Sign in Page
+    </h1>
+    <br>
+    <form action="/submitEmail">
+        <!-- Changed IDs to match the input fields to fix validator issues -->
+        <label for="studentEmail">Student Email:</label><br>
+        <input type="text" id="studentEmail" name="studentEmail"><br> 
+        <label for="studentPassword">Password:</label><br>
+        <input type="password" id="studentPassword" name="studentPassword"><br>
+        <div class="linkNextPage">
+            <a id="forgot-password" href='{{ url_for("password_reset") }}'>forgot your password?</a><br>
+        </div>
+        <!-- submit button to send info to the server -->
+        <input type="submit" value="Sign In">
+    </form>
+</div>
+
+{% endblock %}
