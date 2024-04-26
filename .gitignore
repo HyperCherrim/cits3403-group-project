@@ -1,6 +1,6 @@
 Backend/app/__pycache__/*
 Backend/app/appDatabase.db
 .vs/
-Backend/app/migrations/
+Backend/app/migrations/*
 !Backend/app/migrations/versions/
 Backend/app/migrations/versions/__pycache__/
