@@ -19,7 +19,7 @@ def password_reset():
 
 @app.route('/responding_request')
 def responding_request():
-    return render_template("responding_request.html",title="respond to request")
+    return render_template("createGroup.html",title="respond to request")
 
 @app.route('/user_creation')
 def user_creation():
