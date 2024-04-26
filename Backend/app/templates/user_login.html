@@ -7,17 +7,26 @@
         Sign in Page
     </h1>
     <br>
-    <form action="/submitEmail">
+    <form action="" method="post">
         <!-- Changed IDs to match the input fields to fix validator issues -->
-        <label for="studentEmail">Student Email:</label><br>
-        <input type="text" id="studentEmail" name="studentEmail"><br> 
-        <label for="studentPassword">Password:</label><br>
-        <input type="password" id="studentPassword" name="studentPassword"><br>
+        {{ form.hidden_tag() }}
+        <p> {{ form.studentUser.label }}
+            {{ form.studentUser(size=100) }}
+        </p>
+        <p>
+            {{ form.studentPwd.label }}
+            {{ form.studentPwd(size=48)}}
+        </p>
+        <p>
+            <!-- submit button to send info to the server -->
+            {{ form.submit() }}
+        </p>
         <div class="linkNextPage">
-            <a id="forgot-password" href='{{ url_for("password_reset") }}'>forgot your password?</a><br>
+            <p>Forgot password? Click <a href="{{ url_for('password_reset') }}">here!</a></p>
         </div>
-        <!-- submit button to send info to the server -->
-        <input type="submit" value="Sign In">
+        <div class="register">
+            <p>Don't have an account? Click <a href="{{url_for('user_creation.html')}}">here!</a></p>
+        </div>
     </form>
 </div>
 
