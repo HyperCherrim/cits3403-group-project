@@ -1,29 +1,38 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-<div class="centerBox">
-    <div class="header">
-        <h1>
-            Create User Page
-        </h1>
-    </div>
-    <br> <!-- Changed IDs in the <label> tag to match the valid input -->
-    <form action="/createNewUser">
-        <!-- could do some validation becausee they would be student emails -->
-        <label for="studentEmail">Student Email:</label><br>
-        <input type="text" id="studentEmail" name="studentEmail"><br>
-        <!-- need to add some client side java for validation to make sure that the passwords match-->
-        <label for="studentPassword">Password:</label><br>
-        <input type="password" id="studentPassword" name="studentPassword"><br>
-        <label for="confirmPassword">Confirm Password:</label><br>
-        <input type="password" id="confirmPassword" name="studentPassword"><br>
-        <div class="linkNextPage">
-            <a id="forgot-password" href='{{ url_for("user_login") }}'>already have an account?</a><br>
+<!DOCTYPE html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Page Title</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen' href='../static/login.css'>
+        <script type="text/javascript" src="{{ url_for('static', filename='validateNewPassword.js') }}"></script>
+    </head>
+    <body>
+        <div class="centerBox">
+            <div class="header">
+                <h1>
+                    Create User Page
+                </h1>
+            </div>
+            <br> <!-- Changed IDs in the <label> tag to match the valid input -->
+            <form action="/createNewUser">
+                <!-- could do some validation becausee they would be student emails -->
+                <label for="studentEmail">Student Email:</label><br>
+                <input type="text" id="studentEmail" name="studentEmail"><br>
+                <!-- need to add some client side java for validation to make sure that the passwords match-->
+                <label for="studentPassword">Password:</label><br>
+                <input type="password" id="studentPassword" name="studentPassword"><br>
+                <label for="confirmPassword">Confirm Password:</label><br>
+                <input type="password" id="confirmPassword" name="studentPassword"><br>
+                <div id="doesPasswordMatch"></div>
+                <div id="correctPasswordLength"></div>
+                <div id="correctCharacters"></div>
+                <div class="linkNextPage">
+                    <a id="forgot-password" href='{{ url_for("user_login") }}'>already have an account?</a><br>
+                </div>
+                <!-- submit button to send info to the server about the new user - it is disabled until the password and emails are correct-->
+                <input type="submit" value="Sign In" disabled>
+            </form>
         </div>
-        <!-- submit button to send info to the server about the new user - it is disabled until the password and emails are correct-->
-        <input type="submit" value="Sign In" disabled>
-    </form>
-</div>
-
-{% endblock %}
+    </body>
+</html>
