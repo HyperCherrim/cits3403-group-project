@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<body>
+
+<link rel='stylesheet' type='text/css' media='screen' href='../static/main.css'>
+
 <div class="form" id="StartCreateStudyGroupForm">
     <form>
         <!-- the following lines are the information that is required to make a post-->
@@ -13,6 +17,9 @@
         <input type="text" id="CreateStudyGroupFormTag1" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag1">
         <input type="text" id="CreateStudyGroupFormTag2" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag2">
         <input type="text" id="CreateStudyGroupFormTag3" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag3">
+        <br>
+        <br>
+        <br>
         <br>
         <label for="CreateStudyGroupFormDescription"> Description </label> <br>
         <input type="text" id="CreateStudyGroupFormDescription" name="CreateStudyGroupFormDescription">
@@ -34,5 +41,7 @@
 
 
 </div>
+
+</body>
 
 {% endblock %}
