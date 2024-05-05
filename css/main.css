@@ -1,0 +1,96 @@
+.Searchbar {
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+
+body {
+    text-align: center;
+}
+
+#CreateStudyGroupFormTitle {
+    margin: auto;
+    position: relative;
+    align-items: center;
+    display: flex;
+    
+}
+
+@media only screen and (max-width: 600px) {
+    #CreateStudyGroupFormTag1 {
+        margin: auto;
+        position: absolute;
+        transform: translate(-50%);
+    }
+    
+    #CreateStudyGroupFormTag2 {
+        margin: auto;
+        position: absolute;
+        transform: translate(-50%, 120%);
+    }
+    
+    #CreateStudyGroupFormTag3 {
+        margin: auto;
+        position: absolute;
+        transform: translate(-50%, 240%);
+    }
+  }
+
+#CreateStudyGroupFormDescription {
+    margin: auto;
+    position: relative;
+    align-items: center;
+    padding: 3px;
+    font-size: 10;
+    display: flex;
+}
+
+#CreateStudyGroupFormDescription {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+#CreateStudyGroupFormDatesStart {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+
+}
+
+#CreateStudyGroupFormDatesEnd {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+#CreateStudyGroupFormDatesAdd {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+#CreateStudyGroupFormSubmit {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+input:invalid + span::after {
+    color:red;
+    background-color:red;
+    content: "✖";
+    padding-left: 5px;
+}
+  
+  input:valid + span::after {
+    color:green;
+    background-color:green;
+    content: "✓";
+    padding-left: 5px;
+}
