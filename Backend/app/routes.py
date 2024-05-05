@@ -17,7 +17,7 @@ def index():
 
 @app.route('/createGroup')
 def createGroup():
-    return render_template("createGroup.html",title="Create a Group - Study Group Organiser")
+    return render_template("createGroup.html", title="Create a Group - Study Group Organiser")
 
 @app.route('/password_reset')
 def password_reset():
@@ -34,11 +34,11 @@ def user_creation():
     regform = userRegister()
     if regform.validate_on_submit():
         user = Users(fullName=regform.studentFN.data, userName=regform.studentUN.data, userEmail=regform.studentEM.data)
-        user.set_password(regform.studentPW.data)
+        user.setPassword(regform.studentPW.data)
         db.session.add(user)
         db.session.commit()
         flash("Registration successful!")
-        return render_template(url_for('login'))
+        return redirect(url_for('user_login'))
     return render_template("user_creation.html",title="Register Account - Study Group Organiser", form=regform)
 
 @app.route('/user_login', methods=['GET', 'POST'])
@@ -48,11 +48,10 @@ def user_login():
     form = userLogin()
     if form.validate_on_submit() == True:
         user = db.session.scalar(alchemy.select(Users).where(Users.userName == form.studentUser.data))
-        if user == None or not user.check_password(form.studentPwd.data):
+        if user == None or not user.getPassword(form.studentPwd.data):
             flash("Invalid login details")
         login_user(user)
         return redirect(url_for('index'))
-    #return redirect(url_for('user_login'))
     return render_template("user_login.html",title="Log In - Study Group Organiser", form=form)
 
 @app.route('/logout')

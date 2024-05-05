@@ -19,13 +19,13 @@
         </p>
         <p>
             <!-- submit button to send info to the server -->
-            {{ form.submit() }}
+            {{ form.loginButton() }}
         </p>
         <div class="linkNextPage">
             <p>Forgot password? Click <a href="{{ url_for('password_reset') }}">here!</a></p>
         </div>
         <div class="register">
-            <p>Don't have an account? Click <a href="{{url_for('user_creation.html')}}">here!</a></p>
+            <p>Don't have an account? Click <a href="{{url_for('user_creation')}}">here!</a></p>
         </div>
     </form>
 </div>

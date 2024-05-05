@@ -6,17 +6,21 @@ from typing import Optional
 from datetime import datetime, timezone # Changing the date and time fields to instead be dateTime type
 from app import db, login # Load the database and forms
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     userID: so.Mapped[int] = so.mapped_column(primary_key=True)
     fullName: so.Mapped[str] = so.mapped_column(sa.String(150))
     userName: so.Mapped[int] = so.mapped_column(sa.Integer(), unique=True)
     userEmail: so.Mapped[str] = so.mapped_column(sa.String(160), unique=True)
-    userPasswords: so.Mapped[str] = so.mapped_column(sa.String(255))
+    userPasswords: so.Mapped[Optional[str]] = so.mapped_column(sa.String(254))
     creationDate: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
-    def setPassword(self, inputPassword):
-        self.hashWord = generate_password_hash(inputPassword)
-    def getPassword(self, inputPassword):
-        return check_password_hash(self.hashWord, inputPassword)
+    def __repr__(self):
+        return '<User {}>'.format(self.userName)
+    def setPassword(self, studentPW):
+        self.userPasswords = generate_password_hash(studentPW)
+    def getPassword(self, studentPW):
+        return check_password_hash(self.userPasswords, studentPW)
+    def get_id(self):
+        return(self.userID)
 class Groups(db.Model):
     groupID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
