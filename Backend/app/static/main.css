@@ -46,11 +46,31 @@ body {
     transform: translate(55%);
 }
 
+@media only screen and (max-width: 600px) {
+    #CreateStudyGroupFormTag1 {
+        margin: auto;
+        position: absolute;
+        transform: translate(-50%);
+    }
+    
+    #CreateStudyGroupFormTag2 {
+        margin: auto;
+        position: absolute;
+        transform: translate(-50%, 120%);
+    }
+    
+    #CreateStudyGroupFormTag3 {
+        margin: auto;
+        position: absolute;
+        transform: translate(-50%, 240%);
+    }
+  }
+
 #CreateStudyGroupFormDescription {
     margin: auto;
     position: relative;
     align-items: center;
-    padding: 60px;
+    padding: 22px;
     font-size: 10;
     display: flex;
 }
