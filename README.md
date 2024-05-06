@@ -2,7 +2,7 @@
 
 A description of the purpose of the application, explaining its design and use:
 
-To create schedules of study groups and their meetings. Plan dates, tag your units and chat with your peers.
+To create schedules of study groups and their meetings. Plan dates and tag your units.
 
 A table with each row containing the i) UWA ID ii) name and iii) Github user name of the group members:
 
@@ -15,12 +15,14 @@ A table with each row containing the i) UWA ID ii) name and iii) Github user nam
 
 A brief summary of the architecture of the application.
 
-~~Using html, css, etc.~~
+Utilising Flask, SQLAlchemy and Bootstrap to create a seamless and coherent study group experience.
 
 instructions for how to launch the application.
 
-~~Open the wesbite.html and run.~~ NYI
+Enter the `backend` directory and execute `flask run`.
+## NOTE:
+For now, the database does have to be manually copied over, we will sort this at some point.
 
-instructions for how to run the tests for the application.
+Instructions for how to run the tests for the application.
 
-Currently no tests due to being in the early stages of development.
+Currently no tests - these will be covered shortly.
