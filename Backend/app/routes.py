@@ -39,10 +39,10 @@ def user_page(username):
               "group name 3"
              ]
 
-    notifications = [{"Title":"Example Title1", "date":"29th" "time":"0800 - 0900","emails":"email1 <br> email2"},
-                     {"Title":"Example Title2", "date":"30th" "time":"0930 - 1100","emails":"email3 <br> email4"},
-                     {"Title":"Example Title3", "date":"31th" "time":"2200 - 2345","emails":"email5 <br> email6"},
-                     {"Title":"Example Title4", "date":"1st" "time":"0000 - 0100","emails":"email7 <br> email8"},
+    notifications = [{"Title":"Example Title1", "date":"29th", "time":"0800 - 0900","emails":"email1 <br> email2"},
+                     {"Title":"Example Title2", "date":"30th", "time":"0930 - 1100","emails":"email3 <br> email4"},
+                     {"Title":"Example Title3", "date":"31th", "time":"2200 - 2345","emails":"email5 <br> email6"},
+                     {"Title":"Example Title4", "date":" 1st", "time":"0000 - 0100","emails":"email7 <br> email8"},
                      ]
     
     return render_template("user_page.html",title = user , user=user , groups=groups , notifications = notifications)
