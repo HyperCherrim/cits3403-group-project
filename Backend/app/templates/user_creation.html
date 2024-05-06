@@ -1,38 +1,61 @@
-<!DOCTYPE html>
-    <head>
-        <meta charset='utf-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Page Title</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel='stylesheet' type='text/css' media='screen' href='../static/login.css'>
-        <script type="text/javascript" src="{{ url_for('static', filename='validateNewPassword.js') }}"></script>
-    </head>
-    <body>
-        <div class="centerBox">
-            <div class="header">
-                <h1>
-                    Create User Page
-                </h1>
-            </div>
-            <br> <!-- Changed IDs in the <label> tag to match the valid input -->
-            <form action="/createNewUser">
-                <!-- could do some validation becausee they would be student emails -->
-                <label for="studentEmail">Student Email:</label><br>
-                <input type="text" id="studentEmail" name="studentEmail"><br>
-                <!-- need to add some client side java for validation to make sure that the passwords match-->
-                <label for="studentPassword">Password:</label><br>
-                <input type="password" id="studentPassword" name="studentPassword"><br>
-                <label for="confirmPassword">Confirm Password:</label><br>
-                <input type="password" id="confirmPassword" name="studentPassword"><br>
-                <div id="doesPasswordMatch"></div>
-                <div id="correctPasswordLength"></div>
-                <div id="correctCharacters"></div>
-                <div class="linkNextPage">
-                    <a id="forgot-password" href='{{ url_for("user_login") }}'>already have an account?</a><br>
-                </div>
-                <!-- submit button to send info to the server about the new user - it is disabled until the password and emails are correct-->
-                <input type="submit" value="Sign In" disabled>
-            </form>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="centerBox">
+    <div class="header">
+        <h1>
+            Create an Account
+        </h1>
+    </div>
+    <br> <!-- Changed IDs in the <label> tag to match the valid input -->
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.studentFN.label }}
+            {{ form.studentFN(size=25)}}
+            {% for errorcode in form.studentFN.errors %}
+            <span style="color:orange">[{{ errorcode }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.studentUN.label }}
+            {{ form.studentUN(size=25)}}
+            {% for errorcode in form.studentUN.errors %}
+            <span style="color:orange">[{{ errorcode }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.studentEM.label }}
+            {{ form.studentEM(size=40)}}
+            {% for errorcode in form.studentEM.errors %}
+            <span style="color:orange">[{{ errorcode }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.studentPW.label }}
+            {{ form.studentPW(size=25)}}
+            {% for errorcode in form.studentPW.errors %}
+            <span style="color:orange">[{{ errorcode }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.studentCW.label }}
+            {{ form.studentCW(size=25)}}
+            {% for errorcode in form.studentPW.errors %}
+            <span style="color:orange">[{{ errorcode }}]</span>
+            {% endfor %}
+        </p>
+        <p class=""> {{ form.submitButton() }}</p> <!-- TODO: Rig up something to disable the button until all text boxes are filled-->
+        <!-- could do some validation becausee they would be student emails  - this can be done with Flask-->
+
+        <div class="linkNextPage">
+            <a id="forgot-password" href='{{ url_for("user_login") }}'>Already have an account?</a><br>
         </div>
-    </body>
-</html>
+        <!-- submit button to send info to the server about the new user - it is disabled until the password and emails are correct-->
+        <!--<input type="submit" value="Sign In" disabled> -->
+    </form>
+</div>
+
+{% endblock %}
