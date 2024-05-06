@@ -98,3 +98,11 @@ input:invalid + span::after {
     content: "✓";
     padding-left: 5px;
 }
+
+.UserpageMainblock{
+    position: relative;
+    display: flex;
+}
+.UserpageMainblock > *{
+    text-align: left;
+}

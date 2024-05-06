@@ -2,25 +2,30 @@
 
 {% block content %}
 
-<div>
-    <h1 class="UserPageUsernameDisplay">
-        {{ user.username }}
-    </h1>
-</div>
-<div>
-    {% for group in groups %}
-    <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }} </a> <br>
-    {% endfor %}
-</div>
-
-<div>
-    {% for notification in notifications %}
-    <p>
-        Good news a time has worked out for :{{ notification.title }}. <br>
-        The following people can meet on the {{ notification.date}} at {{ notification.time }} <br>
-        Get in contact! <br>
-        {% for email in emails %}
-        {{ email }} <br>
+<div class="UserpageMainblock">
+    <div>
+        <h1 class="UserPageUsernameDisplay">
+            {{ user }}
+        </h1>
+    </div>
+    <br>
+    <div>
+        {% for group in groups %}
+        <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }} </a> <br>
         {% endfor %}
-    </p>  
+    </div>
+
+    <div>
+        {% for notification in notifications %}
+        <p>
+            Good news a time has worked out for: {{ notification.Title }}. <br>
+            The following people can meet on the {{ notification.date }} at {{ notification.time }} <br>
+            Get in contact! <br>
+            {% for email in notification.emails %}
+            {{ email }} <br>
+            {% endfor %}
+        </p>
+        {% endfor %}
+    </div>
 </div>
+{% endblock %}
