@@ -11,7 +11,7 @@ def index():
 
 @app.route('/making_request')
 def making_request():
-    return render_template("making_request.html",title="making request",cssFile="../static/main.css",jsFile="../static/validateNewPassword.js")
+    return render_template("making_request.html",title="making request",cssFile="../static/main.css",jsFile="../static/populateTable.js")
 
 @app.route('/password_reset')
 def password_reset():

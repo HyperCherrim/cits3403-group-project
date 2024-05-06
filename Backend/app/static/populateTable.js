@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    //
     let scheduleInputs = document.getElementById("scheduleInputs");
 
     for (let i = 0; i < 7; i++) {
@@ -14,8 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <h3>${dayName}</h3>
             <label for="start_${i}">Start Time:</label>
             <input type="time" id="start_${i}">
+            <br>
             <label for="end_${i}">End Time:</label>
             <input type="time" id="end_${i}">
+            <br>
         `;
         scheduleInputs.appendChild(inputDiv);
     }
