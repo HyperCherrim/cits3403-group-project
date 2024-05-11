@@ -2,107 +2,28 @@
     background-color: #00ff0096
 }
 
-.containerResize {
-    width: 66%;
-}
-
-table {
-    align-self: center;
-}
-
-.Searchbar {
-    margin: auto;
-    position: relative;
-    display: flex;
-}
-
-body {
+.header {
     text-align: center;
+    box-sizing: border-box; 
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
-#CreateStudyGroupFormTitle {
-    margin: auto;
+header {
+    background: #fff;
+    padding: 1rem;
+    color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    display: flex;
-    
+    border-radius: 8px 8px 0px 0px;
 }
 
-#CreateStudyGroupFormTag1 {
-    margin: auto;
-    position: absolute;
-    transform: translate(-155%);
-}
-
-#CreateStudyGroupFormTag2 {
-    margin: auto;
-    position: absolute;
-    transform: translate(-50%);
-}
-
-#CreateStudyGroupFormTag3 {
-    margin: auto;
-    position: absolute;
-    transform: translate(55%);
-}
-
-#CreateStudyGroupFormDescription {
-    margin: auto;
-    position: relative;
-    align-items: center;
-    padding: 60px;
-    font-size: 10;
-    display: flex;
-}
-
-
-#CreateStudyGroupFormDatesStart {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-    display: flex;
-
-}
-
-#CreateStudyGroupFormDatesEnd {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-    display: flex;
-}
-
-#CreateStudyGroupFormDatesAdd {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-    display: flex;
-}
-
-#CreateStudyGroupFormSubmit {
-    margin: auto;
-    position: relative;
-    font-size: 10;
-    display: flex;
-}
-
-input:invalid + span::after {
-    color:red;
-    background-color:red;
-    content: "✖";
-    padding-left: 5px;
-}
-  
-  input:valid + span::after {
-    color:green;
-    background-color:green;
-    content: "✓";
-    padding-left: 5px;
-}
-
-.UserpageMainblock{
-    position: relative;
-    display: flex;
-}
-.UserpageMainblock > *{
-    text-align: left;
+header h1 {
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: normal;
 }

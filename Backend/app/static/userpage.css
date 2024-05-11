@@ -1,0 +1,9 @@
+
+.UserpageMainblock{
+    position: relative;
+    display: flex;
+    background-color: rgb(198, 197, 194);
+}
+.UserpageMainblock > *{
+    text-align: right;
+}

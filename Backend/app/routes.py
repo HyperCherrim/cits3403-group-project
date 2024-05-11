@@ -46,5 +46,5 @@ def user_page(username = "TEST"):
                      {"Title":"Example Title4", "date":" 1st", "time":"0000 - 0100","emails":["email","email"]},
                      ]
     
-    return render_template("user_page.html",title = user , user=user , groups=groups , notifications = notifications)
+    return render_template("user_page.html",title = user , user=user , groups=groups , cssFile="../static/userpage.css" , notifications = notifications)
 
