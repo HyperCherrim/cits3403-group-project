@@ -351,21 +351,6 @@ tbody tr td {
     height: 200%;
 }
 
-/**
-thead {
-    tr {
-        display: block;
-        position: relative;
-    }
-    }
-tbody {
-    display: block;
-    overflow: auto;
-    width: 800px;
-    height: 100%;
-    }
-  */
-
 button.secondary {
     border: 1px solid rgba(0, 0, 0, 0.1);
     background: white;
