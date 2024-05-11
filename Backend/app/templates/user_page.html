@@ -2,17 +2,21 @@
 
 {% block content %}
 
-<div class="UserpageMainblock">
+<div class="UserpageMainblock container">
     <div>
         <h1 class="UserPageUsernameDisplay">
             {{ user }}
         </h1>
     </div>
     <br>
-    <div>
+    <div class="row AllGroupsUserPage">
+
         {% for group in groups %}
-        <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }} </a> <br>
+        <div class=" col oneGroupUserPage">
+        <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }} </a> 
+        </div>
         {% endfor %}
+
     </div>
     <div>
         {% for notification in notifications %}

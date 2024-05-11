@@ -37,7 +37,32 @@ def user_page(username = "TEST"):
     user = "TEMPORARY"
     groups = ["group name 1",
               "group name 2",
-              "group name 3"
+              "group name 3",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
+              "group name x",
              ]
 
     notifications = [{"Title":"Example Title1", "date":"29th", "time":"0800 - 0900","emails":["email","email"]},
@@ -46,5 +71,5 @@ def user_page(username = "TEST"):
                      {"Title":"Example Title4", "date":" 1st", "time":"0000 - 0100","emails":["email","email"]},
                      ]
     
-    return render_template("user_page.html",title = user , user=user , groups=groups , cssFile="../static/userpage.css" , notifications = notifications)
+    return render_template("user_page.html",title = user , user=user , groups=groups[0:5] , cssFile="../static/userpage.css" , notifications = notifications)
 

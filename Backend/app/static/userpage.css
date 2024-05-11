@@ -1,9 +1,10 @@
 
 .UserpageMainblock{
-    position: relative;
-    display: flex;
-    background-color: rgb(198, 197, 194);
+    background-color:rgb(233, 255, 237);
 }
-.UserpageMainblock > *{
-    text-align: right;
+
+
+.oneGroupUserPage {
+    border:brown;
+    border-radius: 10;
 }
