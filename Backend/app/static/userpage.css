@@ -1,10 +1,29 @@
-
-.UserpageMainblock{
-    background-color:rgb(233, 255, 237);
+.UserpageMainblock {
+    background-color: rgb(233, 255, 237);
 }
 
 
 .oneGroupUserPage {
-    border:brown;
-    border-radius: 10;
+    border-color: rgb(126, 126, 126);
+    border-radius: 1cap;
+    border-style: solid;
+    background-color: white;
+}
+:hover.oneGroupUserPage{
+    border-color: blue;
+}
+
+.UserPageCurrentGroupsList {
+    color: black;
+    text-decoration: none;
+}
+
+/* #notifications{
+} */
+
+.notification {
+    border: rgb(126, 126, 126);
+    border-radius: 1cap;
+    border-style: solid;
+    background-color: white;
 }

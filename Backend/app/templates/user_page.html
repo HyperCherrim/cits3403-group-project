@@ -9,25 +9,26 @@
         </h1>
     </div>
     <br>
-    <div class="row AllGroupsUserPage">
+    <div class="row AllGroupsUserPage" >
 
         {% for group in groups %}
         <div class=" col oneGroupUserPage">
-        <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }} </a> 
+            <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }}</a>
         </div>
         {% endfor %}
-
     </div>
-    <div>
+    <br>
+    <div class="container-fluid" id="notifications">
         {% for notification in notifications %}
-        <p>
+        <div class="notification">
             Good news a time has worked out for: {{ notification.Title }}. <br>
             The following people can meet on the {{ notification.date }} at {{ notification.time }} <br>
             Get in contact! <br>
             {% for email in notification.emails %}
             {{ email }} <br>
             {% endfor %}
-        </p>
+        </div>
+        <br>
         {% endfor %}
     </div>
 </div>
