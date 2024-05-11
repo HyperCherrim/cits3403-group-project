@@ -1,0 +1,175 @@
+.navbarColouring {
+    background-color: #00ff0096
+}
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    text-align: center;
+}
+
+
+.centerBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100%;
+}
+
+
+.header {
+    text-align: center;
+    box-sizing: border-box; 
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+
+form {
+    text-align: center;
+}
+
+#studyTags {
+    transform: translate(150%);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+input[type="submit"] {
+    background-color: #007bff; 
+    color: #ffffff; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+.linkNextPage {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.linkNextPage a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.linkNextPage a:hover {
+    text-decoration: underline;
+}
+
+
+.containerResize {
+    width: 66%;
+}
+
+table {
+    align-self: center;
+}
+
+.Searchbar {
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+
+#CreateStudyGroupFormTitle {
+    margin: auto;
+    position: relative;
+    align-items: center;
+    display: flex;
+    
+}
+
+#CreateStudyGroupFormSubmit {
+    margin: auto;
+    position: relative;
+    font-size: 10;
+    display: flex;
+}
+
+.wrap {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-width: 1280px;
+    height: 500px;
+    border-radius: 8px;
+}
+
+header {
+    background: #fff;
+    padding: 1rem;
+    color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0px 0px;
+}  
+header h1 {
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: normal;
+}
+
+.headcol {
+    width: 60px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 0.25rem 0;
+    text-align: center;
+    border: 0;
+    position: relative;
+    top: -12px;
+    border-bottom: 1px solid transparent;
+}
+
+button.secondary {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 2px;
+    color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* add ability to cycle through different dates */
+button.secondary:hover {
+    background: #fafafa;
+}
+button.secondary:active {
+box-shadow: none;
+}
+
+button.secondary:focus {
+    outline: 0;
+}
+
+tr td:nth-child(2), tr td:nth-child(3), .past {
+    background: #fafafa;
+}
+
