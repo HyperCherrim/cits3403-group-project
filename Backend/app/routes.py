@@ -10,7 +10,6 @@ import json
 @app.route('/index')
 def index():
     availableGroups = Groups.query.all()
-    print(availableGroups)
     user = Users.query.all()
     units = db.session.query(Groups.tagOne).order_by(alchemy.desc(Groups.tagOne)).all()
     return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/main.css",jsFile="../static/main.js", units=units)
