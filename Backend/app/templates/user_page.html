@@ -8,9 +8,10 @@
             {{ user }}
         </h1>
     </div>
+    <a href="{{ url_for('password_reset') }}"> Reset Password</a>
     <br>
-    <div class="row AllGroupsUserPage" >
-
+    <br>
+    <div class="row AllGroupsUserPage container-fluid">
         {% for group in groups %}
         <div class=" col oneGroupUserPage">
             <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }}</a>
@@ -20,13 +21,20 @@
     <br>
     <div class="container-fluid" id="notifications">
         {% for notification in notifications %}
-        <div class="notification">
-            Good news a time has worked out for: {{ notification.Title }}. <br>
-            The following people can meet on the {{ notification.date }} at {{ notification.time }} <br>
-            Get in contact! <br>
-            {% for email in notification.emails %}
-            {{ email }} <br>
-            {% endfor %}
+        <div class="notification row">
+            <div class=" col NotificationTitle">
+                {{ notification.Title}}
+            </div>
+            <div class="col timedates">
+                {% for datetime in notification.timedate %}
+                {{ datetime }} <br>
+                {% endfor %}
+            </div>
+            <div class="col">
+                {% for email in notification.emails %}
+                {{ email }} <br>
+                {% endfor %}
+            </div>
         </div>
         <br>
         {% endfor %}
