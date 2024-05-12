@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user
 from app import app, db
 import sqlalchemy as alchemy
 from app.models import Users, Groups
-from app.forms import userLogin, userRegister
+from app.forms import userLogin, userRegister, submitTimes
 @app.route('/')
 @app.route('/index')
 def index():
@@ -17,7 +17,8 @@ def index():
 
 @app.route('/createGroup')
 def createGroup():
-    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js")
+    form = submitTimes()
+    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)
 
 @app.route('/password_reset')
 def password_reset():

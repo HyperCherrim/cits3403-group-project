@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 import sqlalchemy as alchemy
 from app import db
-from app.models import Users
+from app.models import Users, Groups
 
 class userRegister(form):
     studentFN = StringField("Full Name: ", validators=[DataRequired()])
@@ -24,3 +24,15 @@ class userLogin(form):
     studentUser = StringField("Username: ", validators=[DataRequired()])
     studentPwd = PasswordField("Password: ", validators=[DataRequired()])
     loginButton = SubmitField("Log In")
+
+class submitTimes(form):
+    groupTitle = StringField("Group Title: ", validators=[DataRequired()])
+    groupTag1 = StringField("Group Tag: ")
+    groupTag2 = StringField("Second Group Tag: ")
+    groupTag3 = StringField("Third Group Tag: ")
+    Description = StringField("Description / Reason For Study Group: ")
+    groupRequestSubmition = SubmitField("Submit Group Request")
+    def validateStudentUsername(self, groupTitle):
+        userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
+        if userName is not None:
+            raise ValidationError("Group name is already taken, please try another.")

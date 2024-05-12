@@ -5,7 +5,27 @@
 <script src='../static/validateNewPassword.js'></script>
 
 <div class="form" id="StartCreateStudyGroupForm">
-    <form>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.groupTitle.label }}<br>
+            {{ form.groupTitle(size=32) }}
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.groupTag1.label }}<br>
+            {{ form.groupTag1(size=32) }}<br>
+            {{ form.groupTag2(size=32) }}<br>
+            {{ form.groupTag3(size=32) }}
+        </p>
+        <p>
+            {{ form.Description.label }}<br>
+            {{ form.Description(size=32) }}
+        </p>
+        <p>{{ form.groupRequestSubmition }}</p>
+
         <!-- the following lines are the information that is required to make a post-->
         <label for="CreateStudyGroupFormTitle"> Title </label> <br>
         <input type="text" id="CreateStudyGroupFormTitle" name="CreateStudyGroupFormTitle">
@@ -21,7 +41,7 @@
         <br>
         <!-- We will need to find some way so that users can add their avalability in a convienient way-->
         <!-- Currently I have it so Users will pick a start and end DateTime and we will javascript to collect that range on each click of the button below. -->
-        <label for="CreateStudyGroupFormDatesStart"> Availability Start </label> <br>
+        <!-- <label for="CreateStudyGroupFormDatesStart"> Availability Start </label> <br>
         <input type="datetime-local" id="CreateStudyGroupFormDatesStart" name="CreateStudyGroupFormDatesStart">
         <br>
         <label for="CreateStudyGroupFormDatesEnd"> Availability End </label> <br>
@@ -29,11 +49,11 @@
         <br>
         <label for="CreateStudyGroupFormDatesAdd"> Add range to availability</label> <br>
         <input type="button" id="CreateStudyGroupFormDatesAdd" value="Add">
-        <br>
+        <br> -->
         <input type="submit" id="CreateStudyGroupFormSubmit" name="CreateStudyGroupFormSubmit">
         <div>
             <label for="week">Select Week Starting From Today:</label>
-            <input type="date" id="week" min="<?php echo date('Y-m-d'); ?>">
+            <input type="week" id="week" min="<?php echo date('Y-m-d'); ?>">
         </div>
         
         <div id="scheduleInputs">
