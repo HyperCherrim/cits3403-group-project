@@ -20,7 +20,7 @@
             <select id="studyTags" class="form-select" name="studyTags">
                 <option value="none">Select unit:</option>
                 {% for item in units %}
-                <option value="{{item.selectedUnit}}">{{ item }}</option>
+                <option value="{{item.selectedUnit}}">{{ item[0] }}</option>
                 {% endfor %}
             </select>
         </form>
@@ -35,7 +35,7 @@
             <hr>
             <p> {{ item.groupDesc }} </p><br>
             <p> Available times: {{ item.availStart }} to {{ item.availEnd }}</p><br>
-            <p> Tags: {{ item.tagOne }}, {{ item.tagTwo if not null 1}}, {{ item.tagThree if not null }}</p><br>
+            <p> Tags: {{ item.tagOne }}, {{ item.tagTwo if not null }}, {{ item.tagThree if not null }}</p><br>
             <p> Required students: {{ item.requiredStudents }}</p>
         </div>
         {% endfor %}
