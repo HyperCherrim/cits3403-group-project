@@ -30,7 +30,7 @@ class Groups(db.Model):
     tagOne: so.Mapped[str] = so.mapped_column(sa.String(8))
     tagTwo: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) # Some groups may only require one tag
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
-    studentAvailability: so.Mapped[str] = so.mapped_column(sa.ARRAY(255))
+    studentAvailability: so.Mapped[str] = so.mapped_column(sa.String(255))
     requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer())
 
 class replyMessages(db.Model):
