@@ -1,10 +1,10 @@
 # cits3403-group-project
 
-A description of the purpose of the application, explaining its design and use:
+## Description
 
 To create schedules of study groups and their meetings. Plan dates and tag your units.
 
-A table with each row containing the i) UWA ID ii) name and iii) Github user name of the group members:
+## Group Details
 
 | Student ID | Student Name     | GitHub Name     |
 |------------|------------------|-----------------|
@@ -13,16 +13,16 @@ A table with each row containing the i) UWA ID ii) name and iii) Github user nam
 | 23631345   | Callum Greenwald | CallumGreenwald |
 | 23120741   | Nathan Foley     | Nathan-Foley    |
 
-A brief summary of the architecture of the application.
+## Application Summary 
 
 Utilising Flask, SQLAlchemy and Bootstrap to create a seamless and coherent study group experience.
 
-instructions for how to launch the application.
+## Launch Instructions: 
+Before first launch, the database must be initialised to avoid errors.  To do this, enter the `Backend` directory and execute `flask db upgrade` to populate a new (empty) database file.  
+After the database file has been created (check `app/static` for a file named `appDatabase.db`), the app can be executed using `flask run`, also from the `Backend` folder.
+### Note regarding launching from the ZIP file
+- These instructions may differ based on how the submission is packaged - these instructions are for running the app from the Git repo.
 
-Enter the `backend` directory and execute `flask run`.
-## NOTE:
-For now, the database does have to be manually copied over, we will sort this at some point.
-
-Instructions for how to run the tests for the application.
+## Running Tests
 
 Currently no tests - these will be covered shortly.

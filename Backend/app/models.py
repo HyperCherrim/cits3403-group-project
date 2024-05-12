@@ -24,18 +24,20 @@ class Users(UserMixin, db.Model):
 class Groups(db.Model):
     groupID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
+    groupName: so.Mapped[str] = so.mapped_column(sa.String(220))
+    groupDescription: so.Mapped[str] = so.mapped_column(sa.String(252))
     postCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Just dealing with this temporarily
     tagOne: so.Mapped[str] = so.mapped_column(sa.String(8))
     tagTwo: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) # Some groups may only require one tag
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
-    studentAvailability: so.Mapped[str] = so.mapped_column(sa.String(255))
+    studentAvailability: so.Mapped[str] = so.mapped_column(sa.ARRAY(255))
     requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer())
 
 class replyMessages(db.Model):
     messageID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.userID))
     # Also link to GroupReply - one user can reply to many groups, but one reply belongs to one user?
-    requestID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Groups.groupID))
+    requestID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Groups.groupID)) # Group ID
     message: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
     messageCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Type of the dateTime will depend on how it is being submitted
     availability: so.Mapped[str] = so.mapped_column(sa.String(128)) # Same here

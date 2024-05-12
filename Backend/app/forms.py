@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm as form
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, DateTimeField, IntegerField, DateField, TimeField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 import sqlalchemy as alchemy
 from app import db
-from app.models import Users
+from app.models import Users, Groups
 
 class userRegister(form):
     studentFN = StringField("Full Name: ", validators=[DataRequired()])
@@ -24,3 +24,14 @@ class userLogin(form):
     studentUser = StringField("Username: ", validators=[DataRequired()])
     studentPwd = PasswordField("Password: ", validators=[DataRequired()])
     loginButton = SubmitField("Log In")
+
+class initialiseGroup(form):
+    groupTitle = StringField("Group Title: ", validators=[DataRequired()])
+    tagOne = StringField("Select first tag: ", validators=[DataRequired()]) #set this as a Bootstrap dropdown
+    tagTwo = StringField("Select second tag: ")
+    tagThree = StringField("Select third tag: ")
+    groupDesc = StringField("Group Description: ")
+    availStart = DateField("Select Availablility Start: ", validators=[DataRequired()])
+    availEnd = DateField("Select Availability End: ", validators=[DataRequired()])
+    requiredStudents = IntegerField("Required number of students: ", validators=[DataRequired()])
+    submitButton = SubmitField("Create New Group")
