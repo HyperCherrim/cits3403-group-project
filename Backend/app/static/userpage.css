@@ -27,3 +27,10 @@
     border-style: solid;
     background-color: white;
 }
+.timedates {
+    text-align: right;
+}
+
+.emails{
+    text-align: center;
+}

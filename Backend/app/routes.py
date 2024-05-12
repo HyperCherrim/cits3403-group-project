@@ -34,7 +34,7 @@ def user_login():
 @app.route('/user/<username>')
 #@login_required
 def user_page(username = "TEST"):
-    user = "Callum Greenwald"
+    user = username
     groups = [
     "The Quantum Thinkers",
     "Code Crusaders",
@@ -42,16 +42,15 @@ def user_page(username = "TEST"):
     "The Algorithmic Alliance",
     "Data Dynamos",
     "Coding Conquerors"
-]
-
-
-
-
-    notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["email","email"]},
-                     {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["email","email"]},
-                     {"Title":"team all the marks", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["email","email"]},
-                     {"Title":"Example Title4", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["email","email"]},
+    ]
+    notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
+                     {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
+                     {"Title":"team all the marks", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
+                     {"Title":"Example Title4", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      ]
-    
-    return render_template("user_page.html",title = user , user=user , groups=groups[0:6] , cssFile="../static/userpage.css" , notifications = notifications)
+    # groups = []
+    # notifications = []
+
+
+    return render_template("user_page.html",title = user , user=user , groups=groups , cssFile="../static/userpage.css" , notifications = notifications)
 

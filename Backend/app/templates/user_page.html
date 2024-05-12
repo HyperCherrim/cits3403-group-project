@@ -11,6 +11,7 @@
     <a href="{{ url_for('password_reset') }}"> Reset Password</a>
     <br>
     <br>
+    {% if groups %}
     <div class="row AllGroupsUserPage container-fluid">
         {% for group in groups %}
         <div class=" col oneGroupUserPage">
@@ -18,26 +19,37 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <p> looks like you havn't applied to any groups. Go to the home page to see interesting groups</p>
+    {% endif %}
     <br>
+    {% if notifications %}
     <div class="container-fluid" id="notifications">
         {% for notification in notifications %}
         <div class="notification row">
             <div class=" col NotificationTitle">
-                {{ notification.Title}}
+                <h5 class="notificationTitle">{{ notification.Title}}</h2> <br>
+                GROUP FORMED!
             </div>
-            <div class="col timedates">
-                {% for datetime in notification.timedate %}
-                {{ datetime }} <br>
-                {% endfor %}
-            </div>
-            <div class="col">
+            <div class="col emails">
+                <h6> Group members</h6>
                 {% for email in notification.emails %}
                 {{ email }} <br>
                 {% endfor %}
             </div>
+            <div class="col timedates">
+                Times that work <br>
+                {% for datetime in notification.timedate %}
+                {{ datetime }} <br>
+                {% endfor %}
+            </div>
+
         </div>
         <br>
         {% endfor %}
     </div>
+    {% else %}
+    <p> You Don't Have any notifications.</p>
+    {% endif %}
 </div>
 {% endblock %}
