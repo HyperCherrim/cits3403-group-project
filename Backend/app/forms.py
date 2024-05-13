@@ -36,3 +36,4 @@ class submitTimes(form):
         userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
         if userName is not None:
             raise ValidationError("Group name is already taken, please try another.")
+
