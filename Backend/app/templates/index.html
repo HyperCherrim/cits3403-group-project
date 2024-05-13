@@ -25,10 +25,10 @@
     </div>
     <div class="btn-group d-flex w-50 justify-content-center .d-xs-none .d-sm-none .d-md-block" role="group" aria-label="Select Study Group">
         <!-- Thought Process: Have a bunch of buttons on the page.  Clicking one will retrieve the relevant study group. -->
-        <!-- Implementation Process: I have no f***ing idea. AJAX/Database shenanigans maybe?  -->
+        <!-- Implementation Process: TBC. AJAX/Database enchancements maybe?  -->
         <form>
         {% for item in groups %}
-        <button type="button" class="btn btn-primary">{{ item.groupName }}</button> <!-- TBC: Implement response to someone pushing buttons.  No, that does not mean annoying them. -->
+        <button type="button" class="btn btn-primary">{{ item.groupName }}</button> <!-- TBC: Implement response to someone pushing buttons. -->
         {% endfor %}
         <br>
         <input type="submit" value="View Groups">
