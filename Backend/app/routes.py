@@ -30,11 +30,6 @@ def createGroup():
         return redirect(url_for('index'))
     return render_template("newGroupSubmit.html",title="Create a Group - Study Group Organiser", form=newGroup)
 
-@app.route('/password_reset')
-@login_required
-def password_reset():
-    return render_template("password_reset.html",title="Reset Password",cssFile="../static/main.css",jsFile="../static/main.js")
-
 @app.route('/responding_request')
 @login_required
 def responding_request():
