@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm as form
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, DateTimeField, IntegerField, DateField, TimeField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 import sqlalchemy as alchemy
 from app import db
@@ -32,3 +32,8 @@ class submitTimes(form):
     groupTag3 = StringField("Third Group Tag: ")
     Description = StringField("Description / Reason For Study Group: ")
     groupRequestSubmition = SubmitField("Submit Group Request")
+    def validateStudentUsername(self, groupTitle):
+        userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
+        if userName is not None:
+            raise ValidationError("Group name is already taken, please try another.")
+
