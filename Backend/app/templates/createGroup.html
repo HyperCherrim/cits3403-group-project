@@ -27,7 +27,9 @@
         <p>{{ form.groupRequestSubmition }}</p>
 
         <!-- the following lines are the information that is required to make a post-->
-        <label for="CreateStudyGroupFormTitle"> Title </label> <br>
+
+
+        {% comment %} <label for="CreateStudyGroupFormTitle"> Title </label> <br>
         <input type="text" id="CreateStudyGroupFormTitle" name="CreateStudyGroupFormTitle">
         <br>
         <!-- This is for adding tags. I think we should allow 3 tags because you can have on for the unit, what their studying for (test etc) and a spare for something else-->
@@ -38,7 +40,9 @@
         <br>
         <label for="CreateStudyGroupFormDescription"> Description </label> <br>
         <input type="text" id="CreateStudyGroupFormDescription" name="CreateStudyGroupFormDescription">
-        <br>
+        <br> {% endcomment %}
+
+
         <!-- We will need to find some way so that users can add their avalability in a convienient way-->
         <!-- Currently I have it so Users will pick a start and end DateTime and we will javascript to collect that range on each click of the button below. -->
         <!-- <label for="CreateStudyGroupFormDatesStart"> Availability Start </label> <br>
