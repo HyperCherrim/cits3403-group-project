@@ -17,8 +17,8 @@
             <label for="studyTags">Select unit:</label>
             <select id="studyTags" class="form-select" name="studyTags">
                 <option value="none">Select unit:</option>
-                {% for item in groups %}
-                <option value="{{item.selectedUnit}}">{{ item.unit }}</option>
+                {% for item in units %}
+                <option value="{{item.selectedUnit}}">{{ item[0] }}</option>
                 {% endfor %}
             </select>
         </form>
@@ -28,8 +28,16 @@
         <!-- Implementation Process: TBC. AJAX/Database enchancements maybe?  -->
         <form>
         {% for item in groups %}
-        <button type="button" class="btn btn-primary">{{ item.groupName }}</button> <!-- TBC: Implement response to someone pushing buttons. -->
+        <div class="container-fluid justify-content-center">
+            <h3>{{ item.groupName }}</h3>
+            <hr>
+            <p> Description: {{ item.groupDescription }} </p><br>
+            <p> Available times: {{ item.availStart }} to {{ item.availEnd }}</p><br>
+            <p> Tags: {{ item.tagOne }}, {{ item.tagTwo if not null }}, {{ item.tagThree if not null }}</p><br>
+            <p> Required students: {{ item.requiredStudents }}</p>
+        </div>
         {% endfor %}
+        <!-- TODO: Show elements in a bubble with the required dates/times, -->
         <br>
         <input type="submit" value="View Groups">
         </form>

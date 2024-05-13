@@ -4,7 +4,7 @@
 
 <div class="centerBox">
     <h1>
-        Sign in Page
+        Log In
     </h1>
     <br>
     <form action="" method="post">
@@ -12,18 +12,21 @@
         {{ form.hidden_tag() }}
         <p> {{ form.studentUser.label }}
             {{ form.studentUser(size=100) }}
+            {% for errorCode in errors %}
+            <span style="color:orange">{{ errorCode }}</span>
+            {% endfor %}
         </p>
         <p>
             {{ form.studentPwd.label }}
             {{ form.studentPwd(size=48)}}
+            {% for errorCode in errors %}
+            <span style="color:orange">{{ errorCode }}</span>
+            {% endfor %}
         </p>
         <p>
             <!-- submit button to send info to the server -->
             {{ form.loginButton() }}
         </p>
-        <div class="linkNextPage">
-            <p>Forgot password? Click <a href="{{ url_for('password_reset') }}">here!</a></p>
-        </div>
         <div class="register">
             <p>Don't have an account? Click <a href="{{url_for('user_creation')}}">here!</a></p>
         </div>
