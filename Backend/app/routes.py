@@ -72,7 +72,8 @@ def userLogout():
 @app.route('/user')
 #@login_required
 def user_page():
-    username = "TEST"
+    #username = "TEST"
+    username = current_user.userName
     groups = [
     "The Quantum Thinkers",
     "Code Crusaders",
@@ -90,7 +91,7 @@ def user_page():
     # notifications = []
 
 
-    return render_template("user_page.html",title = username , user=username , groups=groups , cssFile="../static/userpage.css" , notifications = notifications)
+    return render_template("user_page.html",title = username, user=username, groups=groups, cssFile="../static/userpage.css" ,notifications=notifications)
 
 
 

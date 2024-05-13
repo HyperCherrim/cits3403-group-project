@@ -52,7 +52,7 @@
                     <ul class="dropdown-menu">
                         {% if current_user.is_authenticated %}
                         <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
-                        <li><a class="dropdown-item disabled" href="#">My Account</a>
+                        <li><a class="dropdown-item" href='{{ url_for("user_page")}}'>My Account</a>
                         {% else %}
                         <li><a class="dropdown-item" href='{{ url_for("user_login")}}'>Login</a></li>
                         <li><a class="dropdown-item" href='{{ url_for("user_creation") }}'>Sign Up</a></li>
