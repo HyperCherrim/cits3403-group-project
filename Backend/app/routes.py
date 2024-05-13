@@ -59,3 +59,27 @@ def user_login():
 def userLogout():
     logout_user()
     return(redirect(url_for('index')))
+
+@app.route('/user')
+#@login_required
+def user_page():
+    username = "TEST"
+    groups = [
+    "The Quantum Thinkers",
+    "Code Crusaders",
+    "Logic Lords",
+    "The Algorithmic Alliance",
+    "Data Dynamos",
+    "Coding Conquerors"
+    ]
+    notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
+                     {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
+                     {"Title":"team all the marks", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
+                     {"Title":"Example Title4", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
+                     ]
+    # groups = []
+    # notifications = []
+
+
+    return render_template("user_page.html",title = username , user=username , groups=groups , cssFile="../static/userpage.css" , notifications = notifications)
+
