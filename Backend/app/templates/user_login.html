@@ -12,10 +12,16 @@
         {{ form.hidden_tag() }}
         <p> {{ form.studentUser.label }}
             {{ form.studentUser(size=100) }}
+            {% for errorCode in errors %}
+            <span style="color:orange">{{ errorCode }}</span>
+            { % endfor %}
         </p>
         <p>
             {{ form.studentPwd.label }}
             {{ form.studentPwd(size=48)}}
+            {% for errorCode in errors %}
+            <span style="color:orange">{{ errorCode }}</span>
+            { % endfor %}
         </p>
         <p>
             <!-- submit button to send info to the server -->

@@ -35,3 +35,7 @@ class initialiseGroup(form):
     availEnd = DateField("Select Availability End: ", validators=[DataRequired()])
     requiredStudents = IntegerField("Required number of students: ", validators=[DataRequired()])
     submitButton = SubmitField("Create New Group")
+
+class replyGroup:
+    availStart = DateField("Select start of available time: ", validators=[DataRequired()]) # VERIFY!
+    availEnd = DateField("Select end of availability time: ", validators=[DataRequired()]) # VERIFY!!

@@ -32,6 +32,7 @@ class Groups(db.Model):
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
     studentAvailability: so.Mapped[str] = so.mapped_column(sa.String(255))
     requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer())
+    messages: so.Mapped[Optional[str]] = so.mapped_column(sa.String()) # Pull the list out, add a tuple pair with sender name and message, recommit the list
 
 class replyMessages(db.Model):
     messageID: so.Mapped[int] = so.mapped_column(primary_key=True)
