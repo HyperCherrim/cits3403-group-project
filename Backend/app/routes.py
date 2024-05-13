@@ -28,7 +28,7 @@ def createGroup():
         db.session.commit()
         flash("Group creation successful! ")
         return redirect(url_for('index'))
-    return render_template("newGroupSubmit.html",title="Create a Group - Study Group Organiser", form=newGroup)
+    return render_template("createGroup.html",title="Create a Group - Study Group Organiser", form=newGroup)
 
 @app.route('/responding_request')
 @login_required
