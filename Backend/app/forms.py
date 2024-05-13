@@ -25,17 +25,14 @@ class userLogin(form):
     studentPwd = PasswordField("Password: ", validators=[DataRequired()])
     loginButton = SubmitField("Log In")
 
-class initialiseGroup(form):
+class submitTimes(form):
     groupTitle = StringField("Group Title: ", validators=[DataRequired()])
-    tagOne = StringField("Select first tag: ", validators=[DataRequired()]) #set this as a Bootstrap dropdown
-    tagTwo = StringField("Select second tag: ")
-    tagThree = StringField("Select third tag: ")
-    groupDesc = StringField("Group Description: ")
-    availStart = DateField("Select Availablility Start: ", validators=[DataRequired()])
-    availEnd = DateField("Select Availability End: ", validators=[DataRequired()])
-    requiredStudents = IntegerField("Required number of students: ", validators=[DataRequired()])
-    submitButton = SubmitField("Create New Group")
-
-class replyGroup:
-    availStart = DateField("Select start of available time: ", validators=[DataRequired()]) # VERIFY!
-    availEnd = DateField("Select end of availability time: ", validators=[DataRequired()]) # VERIFY!!
+    groupTag1 = StringField("Group Tag: ")
+    groupTag2 = StringField("Second Group Tag: ")
+    groupTag3 = StringField("Third Group Tag: ")
+    Description = StringField("Description / Reason For Study Group: ")
+    groupRequestSubmition = SubmitField("Submit Group Request")
+    def validateStudentUsername(self, groupTitle):
+        userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
+        if userName is not None:
+            raise ValidationError("Group name is already taken, please try another.")

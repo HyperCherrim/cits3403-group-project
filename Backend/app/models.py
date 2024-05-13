@@ -27,6 +27,7 @@ class Groups(db.Model):
     groupName: so.Mapped[str] = so.mapped_column(sa.String(220))
     groupDescription: so.Mapped[str] = so.mapped_column(sa.String(252))
     postCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Just dealing with this temporarily
+    groupTitle: so.Mapped[str] = so.mapped_column(sa.String(255))
     tagOne: so.Mapped[str] = so.mapped_column(sa.String(8))
     tagTwo: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) # Some groups may only require one tag
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
