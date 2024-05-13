@@ -13,7 +13,7 @@ def index():
     #availableGroups = [{"unit":"CITS2200: Data Structures and Algorithms"}, 
                        #{"unit":"CITS1003: Introduction to Cybersecurity"}, 
                        #{"unit":"MATH1721: Mathematics Foundations: Methods"}] # Populate this later once options for new tags are added
-    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js")
 
 @app.route('/createGroup')
 def createGroup():
@@ -22,11 +22,11 @@ def createGroup():
 
 @app.route('/password_reset')
 def password_reset():
-    return render_template("password_reset.html",title="Reset Password",cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("password_reset.html",title="Reset Password",cssFile="../static/password_reset.css",jsFile="../static/main.js")
 
 @app.route('/responding_request')
 def responding_request():
-    return render_template("responding_request.html",title="Reply to Group Request",cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("responding_request.html",title="Reply to Group Request",cssFile="../static/responding_request.css",jsFile="../static/main.js")
 
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():
@@ -40,7 +40,7 @@ def user_creation():
         db.session.commit()
         flash("Registration successful!")
         return redirect(url_for('user_login'))
-    return render_template("user_creation.html",title="Register Account - Study Group Organiser",form=regform,cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("user_creation.html",title="Register Account - Study Group Organiser",form=regform,cssFile="../static/user_creation.css",jsFile="../static/main.js")
 
 @app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
@@ -53,7 +53,7 @@ def user_login():
             flash("Invalid login details")
         login_user(user)
         return redirect(url_for('index'))
-    return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/login.css",jsFile="../static/main.js")
 
 @app.route('/logout')
 def userLogout():
