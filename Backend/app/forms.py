@@ -26,13 +26,9 @@ class userLogin(form):
     loginButton = SubmitField("Log In")
 
 class submitTimes(form):
-    groupTitle = StringField("Group Title: ", validators=[DataRequired()])
+    groupName = StringField("Group Title: ")
     groupTag1 = StringField("Group Tag: ")
     groupTag2 = StringField("Second Group Tag: ")
     groupTag3 = StringField("Third Group Tag: ")
     Description = StringField("Description / Reason For Study Group: ")
     groupRequestSubmition = SubmitField("Submit Group Request")
-    def validateStudentUsername(self, groupTitle):
-        userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
-        if userName is not None:
-            raise ValidationError("Group name is already taken, please try another.")
