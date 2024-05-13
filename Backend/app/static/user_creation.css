@@ -12,7 +12,6 @@ body, html {
     height: 100%;
 }
 
-
 .header {
     text-align: center;
     box-sizing: border-box; 
@@ -58,7 +57,7 @@ input[type="submit"]:hover {
 
 
 .linkNextPage {
-    
+    display: flex;
     justify-content: flex-end;
     width: 100%;
 }
@@ -72,17 +71,6 @@ input[type="submit"]:hover {
     text-decoration: underline;
 }
 
-.register {
-    
-    justify-content: flex-end;
-    width: 100%;
-}
-
-.register a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-.register a:hover {
-    text-decoration: underline;
+#forgot-password {
+    transform: translate(-45%);
 }

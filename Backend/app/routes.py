@@ -33,7 +33,7 @@ def createGroup():
 @app.route('/responding_request')
 @login_required
 def responding_request():
-    return render_template("responding_request.html",title="Reply to Group Request",cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("responding_request.html",title="Reply to Group Request",cssFile="../static/responding_request.css",jsFile="../static/main.js")
 
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():
@@ -47,7 +47,7 @@ def user_creation():
         db.session.commit()
         flash("Registration successful!")
         return redirect(url_for('user_login'))
-    return render_template("user_creation.html",title="Register Account - Study Group Organiser",form=regform,cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("user_creation.html",title="Register Account - Study Group Organiser",form=regform,cssFile="../static/user_creation.css",jsFile="../static/main.js")
 
 @app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
@@ -61,7 +61,8 @@ def user_login():
             return redirect(url_for('user_login'))
         login_user(user)
         return redirect(url_for('index'))
-    return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/main.css",jsFile="../static/main.js")
+    return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/login.css",jsFile="../static/main.js")
+
 @app.route('/logout')
 @login_required
 def userLogout():
