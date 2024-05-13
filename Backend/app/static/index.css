@@ -96,7 +96,7 @@ table {
 #CreateStudyGroupFormSubmit {
     margin: auto;
     position: relative;
-    font-size: 10;
+    font-size: 10px;
     display: flex;
 }
 

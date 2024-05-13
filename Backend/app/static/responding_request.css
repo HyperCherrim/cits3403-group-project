@@ -116,7 +116,7 @@ body {
     position: relative;
     align-items: center;
     padding: 60px;
-    font-size: 10;
+    font-size: 10px;
     display: flex;
 }
 
@@ -145,28 +145,28 @@ body {
     position: relative;
     align-items: center;
     padding: 22px;
-    font-size: 10;
+    font-size: 10px;
     display: flex;
 }
 
 #CreateStudyGroupFormDatesEnd {
     margin: auto;
     position: relative;
-    font-size: 10;
+    font-size: 10px;
     display: flex;
 }
 
 #CreateStudyGroupFormDatesAdd {
     margin: auto;
     position: relative;
-    font-size: 10;
+    font-size: 10px;
     display: flex;
 }
 
 #CreateStudyGroupFormSubmit {
     margin: auto;
     position: relative;
-    font-size: 10;
+    font-size: 10px;
     display: flex;
 }
 
@@ -252,51 +252,6 @@ table {
     top: -12px;
     border-bottom: 1px solid transparent;
 }
-
-thead th {
-    font-size: 1rem;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.9);
-    padding: 1rem;
-}
-
-thead {
-    z-index: 2;
-    background: white;
-    border-bottom: 2px solid #ddd;
-}
-
-tr, tr td {
-    height: 20px;
-}
-
-td {
-    text-align: center;
-}
-
-tr:nth-child(odd) td:not(.headcol) {
-    border-bottom: 1px solid #e8e8e8;
-}
-
-tr:nth-child(even) td:not(.headcol) {
-    border-bottom: 1px solid #eee;
-}
-
-tr td {
-    border-right: 1px solid #eee;
-    padding: 0;
-    white-space: none;
-    word-wrap: nowrap;
-}
-
-tbody tr td {
-    position: relative;
-    vertical-align: top;
-    height: 40px;
-    padding: 0.25rem 0.25rem 0 0.25rem;
-    width: auto;
-}
-
 
 .checkbox {
     display: none;
