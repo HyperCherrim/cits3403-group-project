@@ -1,7 +1,7 @@
 from flask import render_template
 from flask_login import current_user, login_user
 from app import app
-#@app.route('/')
+@app.route('/')
 @app.route('/index')
 def index():
     user = {'username': 'Debug User'}
@@ -30,11 +30,11 @@ def user_creation():
 def user_login():
     return render_template("user_login.html",title="login")
 
-@app.route('/')
-@app.route('/user/<username>')
+
+@app.route('/user')
 #@login_required
-def user_page(username = "TEST"):
-    user = username
+def user_page():
+    username = "TEST"
     groups = [
     "The Quantum Thinkers",
     "Code Crusaders",
@@ -52,5 +52,5 @@ def user_page(username = "TEST"):
     # notifications = []
 
 
-    return render_template("user_page.html",title = user , user=user , groups=groups , cssFile="../static/userpage.css" , notifications = notifications)
+    return render_template("user_page.html",title = username , user=username , groups=groups , cssFile="../static/userpage.css" , notifications = notifications)
 
