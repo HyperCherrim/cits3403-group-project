@@ -3,9 +3,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
 import sqlalchemy as alchemy
 from app.models import Users, Groups
-from app.forms import userLogin, userRegister, initialiseGroup
-from dateConversion import encodeTimes
-import json
+from app.forms import userLogin, userRegister, submitTimes
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -17,18 +16,17 @@ def index():
 @app.route('/createGroup', methods=['GET', 'POST'])
 @login_required
 def createGroup():
-    newGroup = initialiseGroup()
+    newGroup = submitTimes()
     if newGroup.validate_on_submit():
         dateTimes = [newGroup.availStart.data, newGroup.availEnd.data]
-        processedTimes = encodeTimes(dateTimes)
         username = db.session.query(Users.userID).where(current_user.userName == Users.userName)
-        resultantList = json.dumps(processedTimes)
         addGroup = Groups(userID=username, groupName=newGroup.groupTitle.data, tagOne=newGroup.tagOne.data, tagTwo=newGroup.tagTwo.data, tagThree=newGroup.tagThree.data, groupDescription=newGroup.groupDesc.data, studentAvailability=resultantList, requiredStudents=newGroup.requiredStudents.data)
         db.session.add(addGroup)
         db.session.commit()
         flash("Group creation successful! ")
         return redirect(url_for('index'))
-    return render_template("createGroup.html",title="Create a Group - Study Group Organiser", form=newGroup)
+    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=newGroup)
+
 
 @app.route('/responding_request')
 @login_required
