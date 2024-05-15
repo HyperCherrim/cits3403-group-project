@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm as form
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms_components import TimeField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 import sqlalchemy as alchemy
 from app import db
-from app.models import Users, Groups
+from app.models import Users, Groups, ReplyMessages
 
 class userRegister(form):
     studentFN = StringField("Full Name: ", validators=[DataRequired()])
@@ -32,6 +33,20 @@ class submitTimes(form):
     groupTag3 = StringField("Third Group Tag: ")
     Description = StringField("Description / Reason For Study Group: ")
     groupRequestSubmition = SubmitField("Submit Group Request")
+    mondayStartTime = TimeField('start on monday')
+    mondayEndTime = TimeField('end of available time')
+    tuesdayStartTime = TimeField('start on tuesday')
+    tuesdayEndTime = TimeField('end of available time')
+    webnesdayStartTime = TimeField('start on webnesday')
+    webnesdayEndTime = TimeField('end of available time')
+    thursdayStartTime = TimeField('start on thursday')
+    thursdayEndTime = TimeField('end of available time')
+    fridayStartTime = TimeField('start on friday')
+    fridayEndTime = TimeField('end of available time')
+    saterdayStartTime = TimeField('start on saterday')
+    saterdayEndTime = TimeField('end of available time')
+    sundayStartTime = TimeField('start on sunday')
+    sundayEndTime = TimeField('end of available time')
     def validateStudentUsername(self, groupTitle):
         userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
         if userName is not None:

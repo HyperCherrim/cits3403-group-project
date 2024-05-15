@@ -10,7 +10,7 @@
         <p>
             {{ form.groupTitle.label }}<br>
             {{ form.groupTitle(size=32) }}
-            {% for error in form.username.errors %}
+            {% for error in form.groupTitle.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
@@ -24,16 +24,72 @@
             {{ form.Description.label }}<br>
             {{ form.Description(size=32) }}
         </p>
+        <p>
+            {{ form.mondayStartTime.label }}
+            {{ form.mondayStartTime }}
+        </p><br>
+        <p>
+            {{ form.mondayEndTime.label }}
+            {{ form.mondayEndTime }}
+        </p><br>
+        <p>
+            {{ form.tuesdayStartTime.label }}
+            {{ form.tuesdayStartTime }}
+        </p><br>
+        <p>
+            {{ form.tuesdayEndTime.label }}
+            {{ form.tuesdayEndTime }}
+        </p><br>
+        <p>
+            {{ form.webnesdayStartTime.label }}
+            {{ form.webnesdayStartTime }}
+        </p><br>
+        <p>
+            {{ form.webnesdayEndTime.label }}
+            {{ form.webnesdayEndTime }}
+        </p><br>
+        <p>
+            {{ form.thursdayStartTime.label }}
+            {{ form.thursdayStartTime }}
+        </p><br>
+        <p>
+            {{ form.thursdayEndTime.label }}
+            {{ form.thursdayEndTime }}
+        </p><br>
+        <p>
+            {{ form.fridayStartTime.label }}
+            {{ form.fridayStartTime }}
+        </p><br>
+        <p>
+            {{ form.fridayEndTime.label }}
+            {{ form.fridayEndTime }}
+        </p><br>
+        <p>
+            {{ form.saterdayStartTime.label }}
+            {{ form.saterdayStartTime }}
+        </p><br>
+        <p>
+            {{ form.saterdayEndTime.label }}
+            {{ form.saterdayEndTime }}
+        </p><br>
+        <p>
+            {{ form.sundayStartTime.label }}
+            {{ form.sundayStartTime }}
+        </p><br>
+        <p>
+            {{ form.sundayEndTime.label }}
+            {{ form.sundayEndTime }}
+        </p><br>
         <p>{{ form.groupRequestSubmition }}</p>
 
         <!-- the following lines are the information that is required to make a post-->
 
 
-        {% comment %} <label for="CreateStudyGroupFormTitle"> Title </label> <br>
+        <!-- <label for="CreateStudyGroupFormTitle"> Title </label> <br>
         <input type="text" id="CreateStudyGroupFormTitle" name="CreateStudyGroupFormTitle">
-        <br>
+        <br> -->
         <!-- This is for adding tags. I think we should allow 3 tags because you can have on for the unit, what their studying for (test etc) and a spare for something else-->
-        <label for="CreateStudyGroupFormTag1"> Tags</label> <br>
+        <!-- <label for="CreateStudyGroupFormTag1"> Tags</label> <br>
         <input type="text" id="CreateStudyGroupFormTag1" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag1">
         <input type="text" id="CreateStudyGroupFormTag2" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag2">
         <input type="text" id="CreateStudyGroupFormTag3" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag3">
@@ -43,7 +99,7 @@
         <br>
         <label for="CreateStudyGroupFormDescription"> Description </label> <br>
         <input type="text" id="CreateStudyGroupFormDescription" name="CreateStudyGroupFormDescription">
-        <br> {% endcomment %}
+        <br> -->
 
 
         <!-- We will need to find some way so that users can add their avalability in a convienient way-->

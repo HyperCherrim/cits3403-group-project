@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import app, db
-from app.models import Users, Groups, replyMessages
+from app.models import Users, Groups, ReplyMessages
 
 @app.shell_context_processor
 def make_shell_context(): # Used for easier Flask *cookie monster noises* (Shell) sessions

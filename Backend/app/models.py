@@ -1,10 +1,22 @@
 import sqlalchemy as sa # SQL Operations
 import sqlalchemy.orm as so
+
+from sqlalchemy import create_engine
+from sqlalchemy.pool import StaticPool
+
+
 from werkzeug.security import generate_password_hash, check_password_hash # Password security checking - may not be needed yet
 from flask_login import UserMixin # Will be used for verifying users
 from typing import Optional
 from datetime import datetime, timezone # Changing the date and time fields to instead be dateTime type
 from app import db, login # Load the database and forms
+
+
+engine = create_engine(
+    "sqlite://", 
+    connect_args={"check_same_thread": False}, 
+    poolclass=StaticPool
+)
 
 class Users(UserMixin, db.Model):
     userID: so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -21,6 +33,7 @@ class Users(UserMixin, db.Model):
         return check_password_hash(self.userPasswords, studentPW)
     def get_id(self):
         return(self.userID)
+
 class Groups(db.Model):
     groupID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
@@ -31,8 +44,24 @@ class Groups(db.Model):
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
     studentAvailability: so.Mapped[str] = so.mapped_column(sa.String(255))
     requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer())
+    mondayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    mondayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    tuesdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    tuesdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    webnesdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    webnesdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    thursdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    thursdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    fridayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    fridayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    saterdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    saterdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    sundayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    sundayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    def __repr__(self):
+        return '<Post {}>'.format(self.body)
 
-class replyMessages(db.Model):
+class ReplyMessages(db.Model):
     messageID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.userID))
     # Also link to GroupReply - one user can reply to many groups, but one reply belongs to one user?
