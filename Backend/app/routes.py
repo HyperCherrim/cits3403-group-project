@@ -2,8 +2,11 @@ from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user
 from app import app, db
 import sqlalchemy as alchemy
-from app.models import Users, Groups, ReplyMessages
-from app.forms import userLogin, userRegister, submitTimes
+from app.models import Users, Groups, ReplyMessages, TimeSlot
+from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm
+from datetime import time
+
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -15,35 +18,48 @@ def index():
                        #{"unit":"MATH1721: Mathematics Foundations: Methods"}] # Populate this later once options for new tags are added
     return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js")
 
+
 @app.route('/createGroup', methods=['GET', 'POST'])
 def createGroup():
-    form = submitTimes()
+    form = WeekForm()
+    print("hello 1")
+    print(form.validate_on_submit())
     if form.validate_on_submit():
-        groups = Groups(groupTitle=form.groupTitle.data, 
-                        groupTag1=form.groupTag1.data, 
-                        groupTag2=form.groupTag2.data, 
-                        groupTag3=form.groupTag3.data, 
-                        Description=form.Description.data, 
-                        groupRequestSubmition=form.groupRequestSubmition.data, 
-                        mondayStartTime=form.mondayStartTime.data, 
-                        mondayEndTime=form.mondayEndTime.data, 
-                        tuesdayStartTime=form.tuesdayStartTime.data, 
-                        tuesdayEndTime=form.tuesdayEndTime.data, 
-                        webnesdayStartTime=form.webnesdayStartTime.data, 
-                        webnesdayEndTime=form.webnesdayEndTime.data, 
-                        thursdayStartTime=form.thursdayStartTime.data, 
-                        thursdayEndTime=form.thursdayEndTime.data, 
-                        fridayStartTime=form.fridayStartTime.data, 
-                        fridayEndTime=form.fridayEndTime.data, 
-                        saterdayStartTime=form.saterdayStartTime.data, 
-                        saterdayEndTime=form.saterdayEndTime.data, 
-                        sundayStartTime=form.sundayStartTime.data, 
-                        sundayEndTime=form.sundayEndTime.data)
-        db.session.add(groups)
+        print("hello 1")
+        # Create and save the Group instance
+        group = Groups(
+            userID='user_id_example',  # This should be dynamically set, e.g., from the logged-in user
+            groupTitle=form.groupTitle.data,
+            tagOne=form.groupTag1.data,
+            tagTwo=form.groupTag2.data,
+            tagThree=form.groupTag3.data,
+            description=form.description.data
+        )
+        db.session.add(group)
         db.session.commit()
-        flash("group registration successful!")
+
+        # Save the TimeSlot instances
+        for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
+            for slot in getattr(form, day).entries:
+                start_time = time.fromisoformat(slot.start_time.data)
+                end_time = time.fromisoformat(slot.end_time.data)
+                print(start_time)
+                print(start_time >= end_time)
+                if not start_time == end_time:
+                    if start_time > end_time:
+                        flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
+                        return render_template('createGroup.html', form=form)
+                    new_slot = TimeSlot(
+                        groupID=group.groupID,
+                        day=day,
+                        start_time=start_time,
+                        end_time=end_time
+                    )
+                db.session.add(new_slot)
+        db.session.commit()
+        flash('Time slots and group saved!', 'success')
         return redirect(url_for('index'))
-    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)
+    return render_template('createGroup.html',title="Create Group", cssFile="../static/password_reset.css", form=form)
 
 @app.route('/password_reset')
 def password_reset():

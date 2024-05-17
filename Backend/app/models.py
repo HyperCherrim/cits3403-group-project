@@ -4,7 +4,6 @@ import sqlalchemy.orm as so
 from sqlalchemy import create_engine
 from sqlalchemy.pool import StaticPool
 
-
 from werkzeug.security import generate_password_hash, check_password_hash # Password security checking - may not be needed yet
 from flask_login import UserMixin # Will be used for verifying users
 from typing import Optional
@@ -34,6 +33,13 @@ class Users(UserMixin, db.Model):
     def get_id(self):
         return(self.userID)
 
+class TimeRange(db.Model):
+    ID: so.Mapped[int] = so.mapped_column(primary_key=True)
+    groupID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
+    day = db.Column(db.String(10), nullable=True)
+    start_time = db.Column(db.Time, nullable=True)
+    stop_time = db.Column(db.Time, nullable=True)
+
 class Groups(db.Model):
     groupID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
@@ -42,24 +48,21 @@ class Groups(db.Model):
     tagOne: so.Mapped[str] = so.mapped_column(sa.String(8))
     tagTwo: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) # Some groups may only require one tag
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
-    studentAvailability: so.Mapped[str] = so.mapped_column(sa.String(255))
-    requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer())
-    mondayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    mondayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    tuesdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    tuesdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    webnesdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    webnesdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    thursdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    thursdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    fridayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    fridayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    saterdayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    saterdayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    sundayStartTime: so.Mapped[str] = so.mapped_column(sa.String(16))
-    sundayEndTime: so.Mapped[str] = so.mapped_column(sa.String(16))
+    description: so.Mapped[str] = so.mapped_column(sa.String(255)) # dont need this anymore
+    timeslots = so.relationship('TimeSlot', backref='group', lazy=True)
+
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+class TimeSlot(db.Model):
+    ID: so.Mapped[int] = so.mapped_column(primary_key=True)
+    groupID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Groups.groupID), index=True)
+    day: so.Mapped[str] = so.mapped_column(sa.String(10))
+    start_time = sa.Column(sa.Time, nullable=False)
+    end_time = sa.Column(sa.Time, nullable=False)
+
+    def __repr__(self):
+        return f"<TimeSlot(day={self.day}, start_time={self.start_time}, end_time={self.end_time})>"
 
 class ReplyMessages(db.Model):
     messageID: so.Mapped[int] = so.mapped_column(primary_key=True)

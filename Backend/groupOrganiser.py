@@ -5,4 +5,4 @@ from app.models import Users, Groups, ReplyMessages
 
 @app.shell_context_processor
 def make_shell_context(): # Used for easier Flask *cookie monster noises* (Shell) sessions
-    return{'alchemy':sa, 'orm':so, 'database':db, 'UserBase':Users, 'GroupBase':Groups, 'replies':replyMessages}
+    return{'alchemy':sa, 'orm':so, 'database':db, 'UserBase':Users, 'GroupBase':Groups, 'replies':ReplyMessages}

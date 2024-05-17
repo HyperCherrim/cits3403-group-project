@@ -96,3 +96,25 @@ document.addEventListener('DOMContentLoaded', function() {
   createNewEvent("Lunch Break", "12:30", 0.5, 3, 1); // Saturday, 12:30 PM for 30 minutes
   createNewEvent("Lunch Break", "12:30", 0.5, 3, 2); // Saturday, 12:30 PM for 30 minutes
 });
+
+$(document).ready(function() {
+  $('.add-slot').click(function() {
+      var day = $(this).data('day');
+      var slotsDiv = $('#' + day + '-slots');
+      var numSlots = slotsDiv.children('.form-row').length;
+      if (numSlots < 10) {
+          var newSlot = slotsDiv.children('.form-row:first').clone();
+          newSlot.find('input').each(function() {
+              var name = $(this).attr('name');
+              var newName = name.replace(/-\d+-/, '-' + numSlots + '-');
+              $(this).attr('name', newName).val('');
+          });
+          newSlot.find('select').each(function() {
+              var name = $(this).attr('name');
+              var newName = name.replace(/-\d+-/, '-' + numSlots + '-');
+              $(this).attr('name', newName).val('');
+          });
+          slotsDiv.append(newSlot);
+      }
+  });
+});
