@@ -3,8 +3,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
 import sqlalchemy as alchemy
 
-from app.models import Users, Groups, ReplyMessages, TimeSlot
-from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm
+from app.models import Users, Groups, TimeSlot
+from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm, replyForm
 from datetime import time
 
 @app.route('/')
@@ -19,17 +19,30 @@ def index():
 def createGroup():
     form = WeekForm()
     print("hello 1")
-    print(form.validate_on_submit())
     if form.validate_on_submit():
         print("hello 1")
         # Create and save the Group instance
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+        print("User ID: {}".format(loggedInUserID))
+        # Save the TimeSlot instances
+        for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
+            for slot in getattr(form, day).entries:
+                start_time = time.fromisoformat(slot.start_time.data)
+                end_time = time.fromisoformat(slot.end_time.data)
+                print(start_time)
+                print(start_time >= end_time)
+                if not start_time == end_time:
+                    if start_time > end_time:
+                        flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
+                        return render_template('createGroup.html', form=form)
         group = Groups(
-            userID='user_id_example',  # This should be dynamically set, e.g., from the logged-in user
+            userID=loggedInUserID,  # This should be dynamically set, e.g., from the logged-in user
             groupTitle=form.groupTitle.data,
             tagOne=form.groupTag1.data,
             tagTwo=form.groupTag2.data,
             tagThree=form.groupTag3.data,
-            description=form.description.data
+            description=form.description.data,
+            requiredStudents=form.requiredStudents.data
         )
         db.session.add(group)
         db.session.commit()
@@ -46,22 +59,26 @@ def createGroup():
                         flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
                         return render_template('createGroup.html', form=form)
                     new_slot = TimeSlot(
+                        userID=loggedInUserID,
                         groupID=group.groupID,
                         day=day,
                         start_time=start_time,
                         end_time=end_time
                     )
-                db.session.add(new_slot)
-        db.session.commit()
+                    db.session.add(new_slot)
+            db.session.commit()
         flash('Time slots and group saved!', 'success')
         return redirect(url_for('index'))
     return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)
 
 
-@app.route('/responding_request')
+@app.route('/submitReply/<int:groupID>')
 @login_required
-def responding_request():
-    return render_template("responding_request.html",title="Reply to Group Request",cssFile="../static/responding_request.css",jsFile="../static/main.js")
+def submitResponse(groupID):
+    print("Do you hear me?")
+    respondingForm = replyForm()
+    
+    return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID)
 
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():
@@ -98,18 +115,11 @@ def userLogout():
     return(redirect(url_for('index')))
 
 @app.route('/user')
-#@login_required
+@login_required
 def user_page():
-    #username = "TEST"
     username = current_user.userName
-    groups = [
-    "The Quantum Thinkers",
-    "Code Crusaders",
-    "Logic Lords",
-    "The Algorithmic Alliance",
-    "Data Dynamos",
-    "Coding Conquerors"
-    ]
+    groups = Groups.query.all()
+
     notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"team all the marks", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
@@ -119,7 +129,7 @@ def user_page():
     # notifications = []
 
 
-    return render_template("user_page.html",title = username, user=username, groups=groups, cssFile="../static/userpage.css" ,notifications=notifications)
+    return render_template("user_page.html",title=username, user=username, groups=groups, cssFile="../static/userpage.css" ,notifications=notifications)
 
 
 
