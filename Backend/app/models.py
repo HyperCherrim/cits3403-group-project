@@ -43,15 +43,15 @@ class TimeRange(db.Model):
 class Groups(db.Model):
     groupID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
-    groupTitle: so.Mapped[str] = so.mapped_column(sa.String(220))
     postCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Just dealing with this temporarily
     groupTitle: so.Mapped[str] = so.mapped_column(sa.String(255))
     tagOne: so.Mapped[str] = so.mapped_column(sa.String(8))
     tagTwo: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) # Some groups may only require one tag
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
-
+    requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer(), nullable=True)
     description: so.Mapped[str] = so.mapped_column(sa.String(255))
     timeslots = so.relationship('TimeSlot', backref='group', lazy=True)
+    messages: so.Mapped[Optional[str]] = so.mapped_column(sa.String())
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
@@ -59,6 +59,7 @@ class Groups(db.Model):
 class TimeSlot(db.Model):
     ID: so.Mapped[int] = so.mapped_column(primary_key=True)
     groupID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Groups.groupID), index=True)
+    userID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
     day: so.Mapped[str] = so.mapped_column(sa.String(10))
     start_time = sa.Column(sa.Time, nullable=False)
     end_time = sa.Column(sa.Time, nullable=False)
@@ -66,14 +67,16 @@ class TimeSlot(db.Model):
     def __repr__(self):
         return f"<TimeSlot(day={self.day}, start_time={self.start_time}, end_time={self.end_time})>"
       
-class ReplyMessages(db.Model):
-    messageID: so.Mapped[int] = so.mapped_column(primary_key=True)
-    userID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.userID))
-    # Also link to GroupReply - one user can reply to many groups, but one reply belongs to one user?
-    requestID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Groups.groupID)) # Group ID
-    message: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
-    messageCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Type of the dateTime will depend on how it is being submitted
-    availability: so.Mapped[str] = so.mapped_column(sa.String(128)) # Same here
+# class ReplyMessages(db.Model):
+#     messageID: so.Mapped[int] = so.mapped_column(primary_key=True)
+#     userID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.userID))
+#     # Also link to GroupReply - one user can reply to many groups, but one reply belongs to one user?
+#     requestID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Groups.groupID)) # Group ID
+#     message: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
+#     messageCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Type of the dateTime will depend on how it is being submitted
+#     availability: so.Mapped[str] = so.mapped_column(sa.String(128)) # Same here
+
+
 
 @login.user_loader
 def load_user(userID):
