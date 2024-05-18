@@ -3,8 +3,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
 import sqlalchemy as alchemy
 
-from app.models import Users, Groups, ReplyMessages, TimeSlot
-from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm
+from app.models import Users, Groups, TimeSlot
+from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm, replyForm
 from datetime import time
 
 @app.route('/')
@@ -19,12 +19,13 @@ def index():
 def createGroup():
     form = WeekForm()
     print("hello 1")
-    print(form.validate_on_submit())
     if form.validate_on_submit():
         print("hello 1")
         # Create and save the Group instance
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+        print("User ID: {}".format(loggedInUserID))
         group = Groups(
-            userID='user_id_example',  # This should be dynamically set, e.g., from the logged-in user
+            userID=loggedInUserID,  # This should be dynamically set, e.g., from the logged-in user
             groupTitle=form.groupTitle.data,
             tagOne=form.groupTag1.data,
             tagTwo=form.groupTag2.data,
@@ -58,10 +59,11 @@ def createGroup():
     return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)
 
 
-@app.route('/responding_request')
+@app.route('/submitReply')
 @login_required
-def responding_request():
-    return render_template("responding_request.html",title="Reply to Group Request",cssFile="../static/responding_request.css",jsFile="../static/main.js")
+def submitResponse():
+    respondingForm = replyForm()
+    return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm)
 
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():

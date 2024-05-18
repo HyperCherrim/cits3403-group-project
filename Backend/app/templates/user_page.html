@@ -14,7 +14,7 @@
     <div class="row AllGroupsUserPage container-fluid">
         {% for group in groups %}
         <div class=" col oneGroupUserPage">
-            <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }}</a>
+            <a href="{{ url_for('submitResponse') }}" class="UserPageCurrentGroupsList"> {{ group }}</a>
         </div>
         {% endfor %}
     </div>
