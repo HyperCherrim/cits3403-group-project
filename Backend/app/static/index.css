@@ -12,3 +12,8 @@
 .GroupTags {
     text-align: right;
 }
+
+.LinkText{
+    color: black;
+    text-decoration-line: none;
+}

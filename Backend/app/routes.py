@@ -51,8 +51,8 @@ def createGroup():
                         start_time=start_time,
                         end_time=end_time
                     )
-                db.session.add(new_slot)
-        db.session.commit()
+                    db.session.add(new_slot)
+            db.session.commit()
         flash('Time slots and group saved!', 'success')
         return redirect(url_for('index'))
     return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)

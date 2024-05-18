@@ -14,20 +14,22 @@
     </div>
     <div class="Indexgroups">
         {% for group in groups %}
-        <div class="row container-fluid Indexgroup">
-            <div class="col-sm-8 GroupName">
-                <h3>
-                    {{ group.groupTitle }}
-                </h3>
-                <p>{{ group.description }}</p>
+        <a href='{{ url_for("responding_request")}}' class="LinkText">
+            <div class="row container-fluid Indexgroup">
+                <div class="col GroupName">
+                    <h3>
+                        {{ group.groupTitle }}
+                    </h3>
+                    <p>{{ group.description }}</p>
+                </div>
+                <div class="col GroupTags">
+                    <h3> Tags</h3>
+                    {{ group.tagOne }}<br>
+                    {{ group.tagTwo }}<br>
+                    {{ group.tagThree }}
+                </div>
             </div>
-            <div class="col-sm-4 GroupTags">
-                <h3> Tags</h3>
-                {{ group.tagOne }}<br>
-                {{ group.tagTwo }}<br>
-                {{ group.tagThree }}
-            </div>
-        </div>
+        </a>
         <br>
         {% endfor %}
     </div>
