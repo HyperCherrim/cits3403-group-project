@@ -51,6 +51,7 @@ class Groups(db.Model):
     requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer(), nullable=True)
     description: so.Mapped[str] = so.mapped_column(sa.String(255))
     timeslots = so.relationship('TimeSlot', backref='group', lazy=True)
+    members: so.Mapped[str] = so.mapped_column(sa.String())
     messages: so.Mapped[Optional[str]] = so.mapped_column(sa.String())
 
     def __repr__(self):

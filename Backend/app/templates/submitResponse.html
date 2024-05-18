@@ -5,15 +5,16 @@
         {{ form.hidden_tag() }}
         {{ form.csrf_token }}
 
-        <h2> Apply to join group (groupName)</h2>
+        <h2> Apply to join group {{ group.groupTitle }}</h2>
         <p>
             {{ form.message.label }}
             {{ form.message(size=30) }}
         </p>
-        {% for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
-            <h3>{{ day.capitalize() }}</h3>
-            <div id="{{ day }}-slots">
-                {% for slot_form in form[day] %}
+
+        {% for timeslot in timeslots %}
+            <h3>{{ timeslot.capitalize() }}</h3>
+            <div id="{{ timeslot }}-slots">
+                {% for slot_form in form[timeslot] %}
                     <div>
                         {{ slot_form.day }}
                         {{ slot_form.start_time.label }} {{ slot_form.start_time }}

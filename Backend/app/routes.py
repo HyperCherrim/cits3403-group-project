@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
 import sqlalchemy as alchemy
@@ -35,6 +35,9 @@ def createGroup():
                     if start_time > end_time:
                         flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
                         return render_template('createGroup.html', form=form)
+        groupList = []
+        groupList.append(str(loggedInUserID))
+        groupStr = "---".join(groupList)
         group = Groups(
             userID=loggedInUserID,  # This should be dynamically set, e.g., from the logged-in user
             groupTitle=form.groupTitle.data,
@@ -42,7 +45,8 @@ def createGroup():
             tagTwo=form.groupTag2.data,
             tagThree=form.groupTag3.data,
             description=form.description.data,
-            requiredStudents=form.requiredStudents.data
+            requiredStudents=form.requiredStudents.data,
+            members=groupStr
         )
         db.session.add(group)
         db.session.commit()
@@ -76,9 +80,44 @@ def createGroup():
 @login_required
 def submitResponse(groupID):
     print("Do you hear me?")
+    loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+    groupObj = db.session.scalar(alchemy.select(Groups).where(Groups.groupID == groupID))
     respondingForm = replyForm()
-    # (todo: plug the responses into the DB)
-    return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID)
+    timeslots = db.session.scalar(alchemy.select(TimeSlot).where(groupID == TimeSlot.groupID).where(Groups.userID == TimeSlot.userID))
+    specifiedGroupObject = db.session.scalar(alchemy.select(Groups).where(groupID == Groups.groupID))
+    membersList = specifiedGroupObject.members.split("---")
+    membersList.append(str(loggedInUserID))
+    #db.session.scalar(alchemy.update(Groups).where())
+    days = db.session.scalar(alchemy.select(TimeSlot.day).where(groupID == TimeSlot.groupID).where(Groups.userID == TimeSlot.userID))
+    loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+    if request.method == "GET":
+        print(days)
+        return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, timeslots=days)
+    elif request.method == "POST":
+        if respondingForm.validate_on_submit():
+            print(groupID)
+            for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
+                for slot in getattr(respondingForm, day).entries:
+                    start_time = time.fromisoformat(slot.start_time.data)
+                    end_time = time.fromisoformat(slot.end_time.data)
+                    print(start_time)
+                    print(start_time >= end_time)
+                    if not start_time == end_time:
+                        if start_time > end_time:
+                            flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
+                            return render_template('createGroup.html', form=respondingForm)
+                        new_slot = TimeSlot(
+                            userID=loggedInUserID,
+                            groupID=groupID,
+                            day=day,
+                            start_time=start_time,
+                            end_time=end_time
+                        )
+                        db.session.add(new_slot)
+                db.session.commit()
+            pass
+        return redirect(url_for("index"))
+    #return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID)
 
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():
@@ -118,8 +157,8 @@ def userLogout():
 @login_required
 def user_page():
     username = current_user.userName
+    #groups = db.session.scalar(alchemy.select(Groups)
     groups = Groups.query.all()
-
     notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"team all the marks", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
