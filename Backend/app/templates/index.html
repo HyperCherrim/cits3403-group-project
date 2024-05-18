@@ -29,9 +29,9 @@
         <form>
         {% for item in groups %}
         <div class="container-fluid justify-content-center">
-            <h3>{{ item.groupName }}</h3>
+            <h3>{{ item.groupTitle }}</h3>
             <hr>
-            <p> Description: {{ item.groupDescription }} </p><br>
+            <p> Description: {{ item.description }} </p><br>
             <p> Available times: {{ item.availStart }} to {{ item.availEnd }}</p><br>
             <p> Tags: {{ item.tagOne }}, {{ item.tagTwo if not null }}, {{ item.tagThree if not null }}</p><br>
             <p> Required students: {{ item.requiredStudents }}</p>
