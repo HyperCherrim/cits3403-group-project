@@ -14,7 +14,7 @@
     </div>
     <div class="Indexgroups">
         {% for group in groups %}
-        <a href='{{ url_for("responding_request")}}' class="LinkText">
+        <a href='{{ url_for("submitResponse",groupID=group.groupID ) }}' class="LinkText">
             <div class="row container-fluid Indexgroup">
                 <div class="col GroupName">
                     <h3>
