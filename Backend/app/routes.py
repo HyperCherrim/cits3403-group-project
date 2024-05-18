@@ -88,10 +88,14 @@ def submitResponse(groupID):
     membersList = specifiedGroupObject.members.split("---")
     membersList.append(str(loggedInUserID))
     #db.session.scalar(alchemy.update(Groups).where())
-    days = db.session.scalar(alchemy.select(TimeSlot.day).where(groupID == TimeSlot.groupID).where(Groups.userID == TimeSlot.userID))
+    days = db.session.scalars(alchemy.select(TimeSlot.day)
+            .join(Groups, (Groups.groupID == TimeSlot.groupID) & (Groups.userID == TimeSlot.userID))
+            .distinct()
+        ).all()
     loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     if request.method == "GET":
         print(days)
+        # print(timeslots.)
         return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, timeslots=days)
     elif request.method == "POST":
         if respondingForm.validate_on_submit():
