@@ -41,7 +41,8 @@ def createGroup():
             tagOne=form.groupTag1.data,
             tagTwo=form.groupTag2.data,
             tagThree=form.groupTag3.data,
-            description=form.description.data
+            description=form.description.data,
+            requiredStudents=form.requiredStudents.data
         )
         db.session.add(group)
         db.session.commit()

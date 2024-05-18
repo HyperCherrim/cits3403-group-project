@@ -49,7 +49,7 @@ class Groups(db.Model):
     tagOne: so.Mapped[str] = so.mapped_column(sa.String(8))
     tagTwo: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) # Some groups may only require one tag
     tagThree: so.Mapped[Optional[str]] = so.mapped_column(sa.String(8)) 
-
+    requiredStudents: so.Mapped[int] = so.mapped_column(sa.Integer(), nullable=True)
     description: so.Mapped[str] = so.mapped_column(sa.String(255))
     timeslots = so.relationship('TimeSlot', backref='group', lazy=True)
 
