@@ -72,12 +72,12 @@ def createGroup():
     return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)
 
 
-@app.route('/submitReply/<int:groupID>')
+@app.route('/submitResponse/<int:groupID>', methods=["GET", "POST"])
 @login_required
 def submitResponse(groupID):
     print("Do you hear me?")
     respondingForm = replyForm()
-    
+    # (todo: plug the responses into the DB)
     return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID)
 
 @app.route('/user_creation', methods=['GET', 'POST'])
