@@ -13,7 +13,7 @@ def index():
     availableGroups = Groups.query.all()
     user = Users.query.all()
     units = db.session.query(Groups.tagOne).order_by(alchemy.desc(Groups.tagOne)).all()
-    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/main.css",jsFile="../static/main.js", units=units)
+    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units)
 
 @app.route('/createGroup', methods=['GET', 'POST'])
 def createGroup():
