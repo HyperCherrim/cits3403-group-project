@@ -35,12 +35,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsedMenu"> <!-- items to collapse-->
-                <div class="container-fluid justify-content-center w-50">
-                    <form class="d-flex justify-content-center">
-                        <input class="form-control me-2" type="text" placeholder="Enter unit code here: ">
-                        <button class="btn btn-primary" type="button">Search!</button>
-                    </form>
-                </div>
                 <div class="ms-auto btn-group">
                     {% if current_user.is_authenticated %}
                     <button class="btn btn-primary nav-link dropdown-toggle" type="button"
@@ -50,21 +44,17 @@
                         data-bs-toggle="dropdown">Account Options</button>
                     {% endif %}
                     <ul class="dropdown-menu">
-                        {% if current_user.is_authenticated %}
-                        <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
-                        <li><a class="dropdown-item" href='{{ url_for("user_page")}}'>My Account</a>
-                        {% else %}
                         <li><a class="dropdown-item" href='{{ url_for("user_login")}}'>Login</a></li>
                         <li><a class="dropdown-item" href='{{ url_for("user_creation") }}'>Sign Up</a></li>
-                        {% endif %}
-                        <!-- When logged in, disable the "sign up" link and activate the "my account" link-->
+                        <!-- When logged in, disable the "sign up" link and activate the "my account" link -->
+                        <li>----------------------</li>
+                        <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
+                        <li><a class="dropdown-item disabled" href="#">My Account</a>
                     </ul>
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-    </nav><!-- end of navbar-->
+    </nav><!-- end of navbar -->
 
     {% block content %}{% endblock %}
 
