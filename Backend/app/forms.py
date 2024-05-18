@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm as form
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, FieldList, FormField, HiddenField
+from wtforms import StringField, PasswordField, SubmitField, DateTimeField, IntegerField, DateField, BooleanField, FieldList, FormField, HiddenField
 from wtforms_components import TimeField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 import sqlalchemy as alchemy
@@ -84,6 +84,10 @@ class TimeSlotFormNoCsrf(form):
 class WeekForm(form):
     print("here 1.1")
     groupTitle = StringField("Group Title: ", validators=[DataRequired()])
+    
+    
+class submitTimes(form):
+    groupName = StringField("Group Title: ")
     groupTag1 = StringField("Group Tag: ")
     groupTag2 = StringField("Second Group Tag: ")
     groupTag3 = StringField("Third Group Tag: ")
@@ -103,3 +107,7 @@ class WeekForm(form):
 
 class submitTimes(form):
     submit = SubmitField('Submit')
+    def validateStudentUsername(self, groupTitle):
+        userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
+        if userName is not None:
+            raise ValidationError("Group name is already taken, please try another.")
