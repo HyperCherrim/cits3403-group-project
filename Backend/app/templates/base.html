@@ -27,13 +27,14 @@
     <!-- Set up the navbar -->
     <nav class="navbar navbar-expand-lg fixed-top sticky-top navbarColouring">
         <div class="container-fluid"> <!-- container for the navigation bar -->
-            <a class="navbar-brand navbar-text" href='{{ url_for("index") }}' style="margin-left:30px">Study Group Organiser</a>
+            <a class="navbar-brand navbar-text" href='{{ url_for("main.index") }}' style="margin-left:30px">Study Group Organiser</a>
             <!-- Shrink the menu to a dropdown on smaller screens -->
             <button class="navbar-toggler" data-toggle="collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapsedMenu" aria-controls="collapsedMenu" aria-expanded="false"
                 aria-label="Menu toggle (for smaller screens)">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <a href="about"> About Us </a>
             <div class="collapse navbar-collapse" id="collapsedMenu"> <!-- items to collapse-->
                 <div class="ms-auto btn-group">
                     {% if current_user.is_authenticated %}
@@ -44,11 +45,11 @@
                         data-bs-toggle="dropdown">Account Options</button>
                     {% endif %}
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href='{{ url_for("user_login")}}'>Login</a></li>
-                        <li><a class="dropdown-item" href='{{ url_for("user_creation") }}'>Sign Up</a></li>
+                        <li><a class="dropdown-item" href='{{ url_for("main.user_login")}}'>Login</a></li>
+                        <li><a class="dropdown-item" href='{{ url_for("main.user_creation") }}'>Sign Up</a></li>
                         <!-- When logged in, disable the "sign up" link and activate the "my account" link -->
                         <li>----------------------</li>
-                        <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
+                        <li><a class="dropdown-item" href='{{ url_for("main.userLogout") }}'>Sign Out</a></li>
                         <li><a class="dropdown-item disabled" href="#">My Account</a>
                     </ul>
                 </div>
