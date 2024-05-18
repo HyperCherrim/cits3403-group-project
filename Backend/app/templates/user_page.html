@@ -2,6 +2,12 @@
 
 {% block content %}
 
+<script>
+    function getUserID() {
+        currentValue = document.getElementsByTagName("a")
+        window.alert(currentValue)
+    }
+</script>
 <div class="UserpageMainblock container">
     <div>
         <h1 class="UserPageUsernameDisplay">
@@ -14,7 +20,7 @@
     <div class="row AllGroupsUserPage container-fluid">
         {% for group in groups %}
         <div class=" col oneGroupUserPage">
-            <a href="{{ url_for('submitResponse') }}" class="UserPageCurrentGroupsList"> {{ group }}</a>
+            <a href="#" onclick="getUserID()" class="UserPageCurrentGroupsList"> {{ group }}</a>
         </div>
         {% endfor %}
     </div>

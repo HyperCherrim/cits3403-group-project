@@ -107,7 +107,7 @@ class submitTimes(form):
             raise ValidationError("Group name is already taken, please try another.")
 
 class replyForm(form):
-    message = StringField("Enter group message: ")
+    message = StringField("Enter message to group (optional): ")
     monday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3) #needs to pared with other fields to be safe 
     tuesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
     wednesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
