@@ -13,9 +13,13 @@
     {% if groups %}
     <div class="row AllGroupsUserPage container-fluid">
         {% for group in groups %}
-        <div class=" col oneGroupUserPage">
-            <a href="{{ url_for('responding_request') }}" class="UserPageCurrentGroupsList"> {{ group }}</a>
-        </div>
+
+            <div class=" col oneGroupUserPage">
+                <form action="/submitResponse/{{ group.id }}" method="post">
+                    <p>{{ group.groupTitle }}</p>
+                    <input type="submit" value="Submit Request to Join">
+                </form>
+            </div>
         {% endfor %}
     </div>
     {% else %}
