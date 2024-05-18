@@ -19,6 +19,7 @@ def index():
     return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units)
 
 @app.route('/createGroup', methods=['GET', 'POST'])
+@login_required
 def createGroup():
     form = WeekForm()
     if form.validate_on_submit():
