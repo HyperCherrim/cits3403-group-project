@@ -43,7 +43,6 @@ class TimeRange(db.Model):
 class Groups(db.Model):
     groupID: so.Mapped[int] = so.mapped_column(primary_key=True)
     userID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
-    groupTitle: so.Mapped[str] = so.mapped_column(sa.String(220))
     postCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Just dealing with this temporarily
     groupTitle: so.Mapped[str] = so.mapped_column(sa.String(255))
     tagOne: so.Mapped[str] = so.mapped_column(sa.String(8))

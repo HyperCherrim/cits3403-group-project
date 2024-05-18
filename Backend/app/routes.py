@@ -75,7 +75,9 @@ def createGroup():
 @app.route('/submitReply/<int:groupID>')
 @login_required
 def submitResponse(groupID):
+    print("Do you hear me?")
     respondingForm = replyForm()
+    
     return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID)
 
 @app.route('/user_creation', methods=['GET', 'POST'])
@@ -113,19 +115,10 @@ def userLogout():
     return(redirect(url_for('index')))
 
 @app.route('/user')
-#@login_required
+@login_required
 def user_page():
-    #username = "TEST"
     username = current_user.userName
-    groups = [
-    "The Quantum Thinkers",
-    "Code Crusaders",
-    "Logic Lords",
-    "The Algorithmic Alliance",
-    "Data Dynamos",
-    "Coding Conquerors"
-    ]
-    groups = db.session.scalar(alchemy.select(Groups.groupTitle))
+    groups = Groups.query.all()
 
     notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
@@ -136,7 +129,7 @@ def user_page():
     # notifications = []
 
 
-    return render_template("user_page.html",title = username, user=username, groups=groups, cssFile="../static/userpage.css" ,notifications=notifications)
+    return render_template("user_page.html",title=username, user=username, groups=groups, cssFile="../static/userpage.css" ,notifications=notifications)
 
 
 
