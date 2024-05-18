@@ -15,6 +15,7 @@ def index():
     units = db.session.query(Groups.tagOne).order_by(alchemy.desc(Groups.tagOne)).all()
     return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units)
 
+@login_required
 @app.route('/createGroup', methods=['GET', 'POST'])
 def createGroup():
     form = WeekForm()
@@ -114,7 +115,7 @@ def userLogout():
     logout_user()
     return(redirect(url_for('index')))
 
-@app.route('/user')
+@app.route('/user/<int:userID>')
 @login_required
 def user_page():
     username = current_user.userName
