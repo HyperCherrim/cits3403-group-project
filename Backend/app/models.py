@@ -24,6 +24,7 @@ class Users(UserMixin, db.Model):
     userEmail: so.Mapped[str] = so.mapped_column(sa.String(160), unique=True)
     userPasswords: so.Mapped[Optional[str]] = so.mapped_column(sa.String(254))
     creationDate: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
+    groupMembership: so.Mapped[Optional[str]] = so.mapped_column(sa.String())
     def __repr__(self):
         return '<User {}>'.format(self.userName)
     def setPassword(self, studentPW):
@@ -52,7 +53,6 @@ class Groups(db.Model):
     description: so.Mapped[str] = so.mapped_column(sa.String(255))
     timeslots = so.relationship('TimeSlot', backref='group', lazy=True)
     members: so.Mapped[str] = so.mapped_column(sa.String())
-    messages: so.Mapped[Optional[str]] = so.mapped_column(sa.String())
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
@@ -68,17 +68,6 @@ class TimeSlot(db.Model):
     def __repr__(self):
         return f"<TimeSlot(day={self.day}, start_time={self.start_time}, end_time={self.end_time})>"
       
-# class ReplyMessages(db.Model):
-#     messageID: so.Mapped[int] = so.mapped_column(primary_key=True)
-#     userID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.userID))
-#     # Also link to GroupReply - one user can reply to many groups, but one reply belongs to one user?
-#     requestID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Groups.groupID)) # Group ID
-#     message: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
-#     messageCreationDate: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now()) # Type of the dateTime will depend on how it is being submitted
-#     availability: so.Mapped[str] = so.mapped_column(sa.String(128)) # Same here
-
-
-
 @login.user_loader
 def load_user(userID):
     return db.session.get(Users, int(userID))

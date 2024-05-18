@@ -12,12 +12,16 @@
     <br>
     {% if groups %}
     <div class="row AllGroupsUserPage container-fluid">
-        {% for group in groups %}
-
-            <div class=" col oneGroupUserPage">
-                <a href='{{ url_for("submitResponse", groupID=group.groupID)}}'>{{ group.groupTitle }}</a>
-            </div>
-        {% endfor %}
+        {% if groups == "User is not a member of any groups!" %}
+            <h3>User is not a member of any groups!</h3>
+        {% else %}
+            {% for group in groups %}
+                <div class=" col oneGroupUserPage">
+                    <p>Test: {{ notifications[group]["ID"]}}</p>
+                    <a href='{{ url_for("submitResponse", groupID=notifications[group]["ID"]) }}'>{{ group }}</a>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
     {% else %}
     <p> looks like you havn't applied to any groups. Go to the home page to see interesting groups</p>
