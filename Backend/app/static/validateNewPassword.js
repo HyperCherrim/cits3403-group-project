@@ -35,8 +35,4 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = !(isLengthValid && isCriteriaValid);
         }
     }
-
-    // Add event listeners to password and confirm password fields
-    passwordInput.addEventListener('input', validatePasswords);
-    confirmPasswordInput.addEventListener('input', validatePasswords);
 });

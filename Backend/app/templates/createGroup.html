@@ -5,69 +5,46 @@
 <script src='../static/validateNewPassword.js'></script>
 
 <div class="form" id="StartCreateStudyGroupForm">
-    <form action="" method="post" novalidate>
+    <form method="POST">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.groupName.label }}<br>
-            {{ form.groupName(size=32) }}
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.groupTag1.label }}<br>
-            {{ form.groupTag1(size=32) }}<br>
-            {{ form.groupTag2(size=32) }}<br>
-            {{ form.groupTag3(size=32) }}
-        </p>
-        <p>
-            {{ form.Description.label }}<br>
-            {{ form.Description(size=32) }}
-        </p>
-        <p>{{ form.groupRequestSubmition }}</p>
-
-        <!-- the following lines are the information that is required to make a post-->
-
-
-        {% comment %} <label for="CreateStudyGroupFormTitle"> Title </label> <br>
-        <input type="text" id="CreateStudyGroupFormTitle" name="CreateStudyGroupFormTitle">
-        <br>
-        <!-- This is for adding tags. I think we should allow 3 tags because you can have on for the unit, what their studying for (test etc.) and a spare for something else -->
-        <label for="CreateStudyGroupFormTag1"> Tags</label> <br>
-        <input type="text" id="CreateStudyGroupFormTag1" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag1">
-        <input type="text" id="CreateStudyGroupFormTag2" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag2">
-        <input type="text" id="CreateStudyGroupFormTag3" class="CreateStudyGroupFormTags" name="CreateStudyGroupFormTag3">
-        <br>
-        <br>
-        <br>
-        <br>
-        <label for="CreateStudyGroupFormDescription"> Description </label> <br>
-        <input type="text" id="CreateStudyGroupFormDescription" name="CreateStudyGroupFormDescription">
-        <br> {% endcomment %}
-
-
-        <!-- We will need to find some way so that users can add their avalability in a convienient way-->
-        <!-- Currently I have it so Users will pick a start and end DateTime and we will javascript to collect that range on each click of the button below. -->
-        <!-- <label for="CreateStudyGroupFormDatesStart"> Availability Start </label> <br>
-        <input type="datetime-local" id="CreateStudyGroupFormDatesStart" name="CreateStudyGroupFormDatesStart">
-        <br>
-        <label for="CreateStudyGroupFormDatesEnd"> Availability End </label> <br>
-        <input type="datetime-local" id="CreateStudyGroupFormDatesEnd" name="CreateStudyGroupFormDatesEnd">
-        <br>
-        <label for="CreateStudyGroupFormDatesAdd"> Add range to availability</label> <br>
-        <input type="button" id="CreateStudyGroupFormDatesAdd" value="Add">
-        <br> -->
-        <input type="submit" id="CreateStudyGroupFormSubmit" name="CreateStudyGroupFormSubmit">
+        {{ form.csrf_token }}
         <div>
-            <label for="week">Select Week Starting From Today:</label>
-            <input type="week" id="week" min="<?php echo date('Y-m-d'); ?>">
+            {{ form.groupTitle.label }} {{ form.groupTitle }}
         </div>
-        
-        <div id="scheduleInputs">
-            <!-- Inputs for each day of the week will be added here -->
+        <div>
+            {{ form.groupTag1.label }} {{ form.groupTag1 }}
         </div>
-        
-        <button onclick="saveSchedule()">Save Schedule</button>
+        <div>
+            {{ form.groupTag2.label }} {{ form.groupTag2 }}
+        </div>
+        <div>
+            {{ form.groupTag3.label }} {{ form.groupTag3 }}
+        </div>
+        <div>
+            {{ form.description.label }} {{ form.description }}
+        </div>
+
+        {% for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+            <h3>{{ day.capitalize() }}</h3>
+            <div id="{{ day }}-slots">
+                {% for slot_form in form[day] %}
+                    <div>
+                        {{ slot_form.day }}
+                        {{ slot_form.start_time.label }} {{ slot_form.start_time }}
+                        {{ slot_form.end_time.label }} {{ slot_form.end_time }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div>
+            {% if form.errors %}
+                {{ form.errors }}
+            {% endif %}
+        </div>
+
+        <div>
+            {{ form.submit }}
+        </div>
     </form>
 
     <div class="calendar">

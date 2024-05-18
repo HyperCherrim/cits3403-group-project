@@ -2,8 +2,10 @@ from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
 import sqlalchemy as alchemy
-from app.models import Users, Groups
-from app.forms import userLogin, userRegister, submitTimes
+
+from app.models import Users, Groups, ReplyMessages, TimeSlot
+from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm
+from datetime import time
 
 @app.route('/')
 @app.route('/index')
@@ -14,18 +16,46 @@ def index():
     return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/main.css",jsFile="../static/main.js", units=units)
 
 @app.route('/createGroup', methods=['GET', 'POST'])
-@login_required
 def createGroup():
-    newGroup = submitTimes()
-    if newGroup.validate_on_submit():
-        dateTimes = [newGroup.availStart.data, newGroup.availEnd.data]
-        username = db.session.query(Users.userID).where(current_user.userName == Users.userName)
-        addGroup = Groups(userID=username, groupName=newGroup.groupTitle.data, tagOne=newGroup.tagOne.data, tagTwo=newGroup.tagTwo.data, tagThree=newGroup.tagThree.data, groupDescription=newGroup.groupDesc.data, studentAvailability=resultantList, requiredStudents=newGroup.requiredStudents.data)
-        db.session.add(addGroup)
+    form = WeekForm()
+    print("hello 1")
+    print(form.validate_on_submit())
+    if form.validate_on_submit():
+        print("hello 1")
+        # Create and save the Group instance
+        group = Groups(
+            userID='user_id_example',  # This should be dynamically set, e.g., from the logged-in user
+            groupTitle=form.groupTitle.data,
+            tagOne=form.groupTag1.data,
+            tagTwo=form.groupTag2.data,
+            tagThree=form.groupTag3.data,
+            description=form.description.data
+        )
+        db.session.add(group)
         db.session.commit()
-        flash("Group creation successful! ")
+
+        # Save the TimeSlot instances
+        for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
+            for slot in getattr(form, day).entries:
+                start_time = time.fromisoformat(slot.start_time.data)
+                end_time = time.fromisoformat(slot.end_time.data)
+                print(start_time)
+                print(start_time >= end_time)
+                if not start_time == end_time:
+                    if start_time > end_time:
+                        flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
+                        return render_template('createGroup.html', form=form)
+                    new_slot = TimeSlot(
+                        groupID=group.groupID,
+                        day=day,
+                        start_time=start_time,
+                        end_time=end_time
+                    )
+                db.session.add(new_slot)
+        db.session.commit()
+        flash('Time slots and group saved!', 'success')
         return redirect(url_for('index'))
-    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=newGroup)
+    ("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)
 
 
 @app.route('/responding_request')
