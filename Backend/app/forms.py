@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm as form
-from wtforms import StringField, PasswordField, SubmitField, DateTimeField, IntegerField, DateField, BooleanField, FieldList, FormField, HiddenField
-from wtforms_components import TimeField
+from wtforms import StringField, PasswordField, SubmitField, DateTimeField, IntegerField, DateField, BooleanField, FieldList, FormField, HiddenField, TimeField, SelectField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 import sqlalchemy as alchemy
 from app import db
