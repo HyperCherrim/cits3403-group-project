@@ -82,11 +82,7 @@ class TimeSlotFormNoCsrf(form):
 
 class WeekForm(form):
     print("here 1.1")
-    groupTitle = StringField("Group Title: ", validators=[DataRequired()])
-    
-    
-class submitTimes(form):
-    groupName = StringField("Group Title: ")
+    groupTitle = StringField("Group Title: ")
     groupTag1 = StringField("Group Tag: ")
     groupTag2 = StringField("Second Group Tag: ")
     groupTag3 = StringField("Third Group Tag: ")
