@@ -7,7 +7,7 @@ from TimeLineUp import CheckOverlap
 
 from app.models import Users, Groups, TimeSlot, ReplyMessages
 from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm, replyForm
-from datetime import time
+from datetime import time as TimeDay
 
 @app.route('/')
 @app.route('/index')
@@ -38,8 +38,8 @@ def createGroup():
         # Save the TimeSlot instances
         for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
             for slot in getattr(form, day).entries:
-                start_time = time.fromisoformat(slot.start_time.data)
-                end_time = time.fromisoformat(slot.end_time.data)
+                start_time = TimeDay.fromisoformat(slot.start_time.data)
+                end_time = TimeDay.fromisoformat(slot.end_time.data)
                 print(start_time)
                 print(start_time >= end_time)
                 if not start_time == end_time:
@@ -68,8 +68,8 @@ def createGroup():
         # Save the TimeSlot instances
         for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
             for slot in getattr(form, day).entries:
-                start_time = time.fromisoformat(slot.start_time.data)
-                end_time = time.fromisoformat(slot.end_time.data)
+                start_time = TimeDay.fromisoformat(slot.start_time.data)
+                end_time = TimeDay.fromisoformat(slot.end_time.data)
                 print(start_time)
                 print(start_time >= end_time)
                 if not start_time == end_time:
@@ -87,7 +87,7 @@ def createGroup():
             db.session.commit()
         flash('Time slots and group saved!', 'success')
         return redirect(url_for('index'))
-    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form,userID = loggedInUserID)
+    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/createGroup.css",jsFile="../static/populateTable.js", form=form,userID = loggedInUserID)
 
 @app.route('/password_reset')
 def password_reset():
@@ -121,8 +121,8 @@ def submitResponse(groupID):
             foundGroupTime = []
             for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
                 for slot in getattr(respondingForm, day).entries:
-                    start_time = time.fromisoformat(slot.start_time.data)
-                    end_time = time.fromisoformat(slot.end_time.data)
+                    start_time = TimeDay.fromisoformat(slot.start_time.data)
+                    end_time = TimeDay.fromisoformat(slot.end_time.data)
 
                     if not start_time == end_time:
                         if start_time > end_time:
@@ -150,15 +150,21 @@ def submitResponse(groupID):
                 db.session.commit()
 
                 time_ranges = db.session.execute(alchemy.select(TimeSlot).where(TimeSlot.groupID == groupID)).scalars().all()
+                people = []
                 for time_range in time_ranges:
-                    people = []
                     if time_range.day == day:
+                        print(time_range)
                         people.append([time_range.userID,str(time_range.start_time),str(time_range.end_time)])
-                        tmp = CheckOverlap(people,groupObj.requiredStudents,groupObj.numberOfHours)
-                        if tmp != []:
-                            tmp[0] = day + "," + tmp[0]
-                            foundGroupTime.append(tmp)
+                        print(people)
+                        print(groupObj.requiredStudents)
+                        print(groupObj.numberOfHours)
+                tmp = CheckOverlap(people,groupObj.requiredStudents,groupObj.numberOfHours)
+                if tmp != []:
+                    tmp[0] = day + "," + tmp[0]
+                    foundGroupTime.append(tmp)
+            print("hola")
             if foundGroupTime != []:
+                print("HELLOOOO")
                 others = foundGroupTime[0]
                 time = others[0]
                 peple = ','.join(str(x) for x in others[1])
@@ -168,7 +174,7 @@ def submitResponse(groupID):
                     otherUsers=peple,
                     timeStart=time
                 )
-                db.session.add(new_slot)
+                db.session.add(newReply)
             db.session.commit()
             flash('Response submitted successfully!', 'success')
             return redirect(url_for("index"))
@@ -229,9 +235,20 @@ def user_page(userID):
     loggedInUserID = 0
     if current_user.is_authenticated:
         loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+    else:
+        return redirect(url_for('user_login'))
     username = current_user.userName
     #groups = db.session.scalar(alchemy.select(Groups)
     groups = Groups.query.all()
+
+    # notifications = []
+    # NotificationBase = db.session.scalars(alchemy.select(ReplyMessages.replyID,ReplyMessages.userID,ReplyMessages.otherUsers,ReplyMessages.groupID,ReplyMessages.timeStart).where(ReplyMessages.userID == loggedInUserID or int(loggedInUserID) in (",".split(ReplyMessages.otherUsers)))).all()
+    # for notification in NotificationBase:
+    #     userEmail = db.session.scalars(alchemy.select(Users.userEmail).where(Users.userID == notification.userID or Users.userID in notification.otherUsers)).all()
+    #     title = db.session.scalar(alchemy.select(Groups.groupTitle).where(Groups.groupID == notification.groupID))
+    #     tempNotification = {"Title":title,"timedate":notification.timeStart,"emails":userEmail}
+    #     notifications.append(tempNotification)
+
 
     notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
