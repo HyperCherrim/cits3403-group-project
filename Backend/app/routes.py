@@ -148,14 +148,15 @@ def submitResponse(groupID):
             flash('Response submitted successfully!', 'success')
 
             
-            currentMembership = db.session.scalar(alchemy.select(Users).where(loggedInUserID == Users.userID))
+            currentMembership = db.session.scalar(alchemy.select(Users.groupMembership).where(loggedInUserID == Users.userID))
             if currentMembership is None:
                 newMembership = [str(groupID)]
             else:
+                print(currentMembership)
                 newMembership = currentMembership.split("---")
                 newMembership.append(str(groupID))
             memberString = "---".join(newMembership)
-            mlString = db.session.scalar(alchemy.select(Groups).where(groupID == Groups.groupID))
+            mlString = db.session.scalar(alchemy.select(Groups.members).where(groupID == Groups.groupID))
             mlList = mlString.split("---")
             mlList.append(str(loggedInUserID))
             newString = "---".join(mlList)
@@ -200,7 +201,7 @@ def userLogout():
     logout_user()
     return(redirect(url_for('index')))
 
-@app.route('/user/<int:userID>')
+@app.route('/user')
 @login_required
 def user_page():
     username = current_user.userName
@@ -226,20 +227,15 @@ def user_page():
             for item in idList:
                 studentEmail = db.session.scalar(alchemy.select(Users.userEmail).where(item == Users.userID))
                 emailList.append(studentEmail)
+            timeslots = db.session.scalar(alchemy.select(Groups.timeslots).where(item == Groups.groupID).where(loggedInUser == TimeSlot.userID))
+            print("Timeslots: {}".format(timeslots))
+            if timeslots is False:
+                timeslots = "placeholder"
             availableGroups[groupTitle] = {"ID": item, "timedate":"placeholder", "emails":emailList}
             groupNames.append(groupTitle)
     print("Groupnames: {}".format(groupNames))
 
     print("Available Groups: {}".format(availableGroups))
-
-    #notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
-                    #  {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
-                    #  {"Title":"team all the marks", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
-                    #  {"Title":"Example Title4", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
-                    # ]
-    # groups = []
-    # notifications = []
-
 
     return render_template("user_page.html",title=username, user=username, groups=groupNames, cssFile="../static/userpage.css" ,notifications=availableGroups)
 
