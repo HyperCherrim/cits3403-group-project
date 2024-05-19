@@ -415,3 +415,18 @@ tr td:nth-child(2), tr td:nth-child(3), .past {
     position: relative;
     top: -2px;
 }
+
+.calendar__title {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+#calendar_title_text {
+    flex: 1;
+}
+
+#calendar_header {
+    align-self: flex-start;
+    flex: 0 0 1;
+}

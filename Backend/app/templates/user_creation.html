@@ -16,35 +16,35 @@
             {{ form.studentFN.label }}
             {{ form.studentFN(size=25)}}
             {% for errorcode in form.studentFN.errors %}
-            <span style="color:orange">[{{ errorcode }}]</span>
+            <span id="FN_error">[{{ errorcode }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.studentUN.label }}
             {{ form.studentUN(size=25)}}
             {% for errorcode in form.studentUN.errors %}
-            <span style="color:orange">[{{ errorcode }}]</span>
+            <span id="UN_error">[{{ errorcode }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.studentEM.label }}
             {{ form.studentEM(size=40)}}
             {% for errorcode in form.studentEM.errors %}
-            <span style="color:orange">[{{ errorcode }}]</span>
+            <span id="EM_error">[{{ errorcode }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.studentPW.label }}
             {{ form.studentPW(size=25)}}
             {% for errorcode in form.studentPW.errors %}
-            <span style="color:orange">[{{ errorcode }}]</span>
+            <span id="PW_error">[{{ errorcode }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.studentCW.label }}
             {{ form.studentCW(size=25)}}
             {% for errorcode in form.studentPW.errors %}
-            <span style="color:orange">[{{ errorcode }}]</span>
+            <span id="CW_error">[{{ errorcode }}]</span>
             {% endfor %}
         </p>
         <p class=""> {{ form.submitButton() }}</p> <!-- TODO: Something to disable the button until all text boxes are filled-->
