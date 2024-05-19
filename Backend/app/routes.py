@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
 import sqlalchemy as alchemy
+from TimeLineUp import CheckOverlap
 
 from app.models import Users, Groups, TimeSlot
 from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm, replyForm
@@ -146,6 +147,7 @@ def submitResponse(groupID):
                         )
                         db.session.add(new_slot)
                 db.session.commit()
+                print(CheckOverlap([[1,"18:00:00.00000","21:45:00.000000"],[2,"00:15:00.000000","22:30:00.000000"]],2,2))
             flash('Response submitted successfully!', 'success')
             return redirect(url_for("index"))
 
