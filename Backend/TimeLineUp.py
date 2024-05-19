@@ -16,16 +16,16 @@ def CheckOverlap(IdAvaliability,MembersNeeded,hoursneeded):
             if int(time[0]) >= int(AvaliabilityStart) and int(time[0]) <= int(AvaliabilityEnd):
                 time[1].append(user[0])
     
-    output = []
+
     for i in range(len(Times)-hoursneeded*4):
         works = True
         if len(Times[i][1]) >= MembersNeeded:
-            members = Times[i][1].copy
+            members = Times[i][1].copy()
             for j in range(1,hoursneeded*4+1):
                     for member in members:
                         if member not in Times[i+j][1]:
                             members.remove(member)
-                    if members < MembersNeeded:
+                    if len(members) < MembersNeeded:
                         works = False
             if works:
                 if len(str(Times[i][0])) != 4:
