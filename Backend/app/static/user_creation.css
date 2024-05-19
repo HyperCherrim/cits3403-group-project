@@ -74,3 +74,23 @@ input[type="submit"]:hover {
 #forgot-password {
     transform: translate(-45%);
 }
+
+#FN_error {
+    color:orange
+}
+
+#UN_error {
+    color:orange
+}
+
+#EM_error {
+    color:orange
+}
+
+#PW_error {
+    color:orange
+}
+
+#CW_error {
+    color:orange
+}

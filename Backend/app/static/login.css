@@ -86,3 +86,11 @@ input[type="submit"]:hover {
 .register a:hover {
     text-decoration: underline;
 }
+
+#studentUser_error {
+    color: orange;
+}
+
+#studentPwd_error {
+    color: orange;
+}

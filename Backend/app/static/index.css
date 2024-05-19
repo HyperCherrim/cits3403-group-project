@@ -17,3 +17,8 @@
     color: black;
     text-decoration-line: none;
 }
+
+#index_button {
+    padding-top:100px;
+    padding-bottom:70px
+}
