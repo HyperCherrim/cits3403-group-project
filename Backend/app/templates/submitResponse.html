@@ -4,25 +4,38 @@
     <form action="" method="post">
         {{ form.hidden_tag() }}
         {{ form.csrf_token }}
-
-        <h2> Apply to join group (groupName)</h2>
+    
+        <h2>Apply to join group {{ group.groupTitle }}</h2>
         <p>
             {{ form.message.label }}
             {{ form.message(size=30) }}
         </p>
-        {% for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+    
+        {% for day, slots in available_times.items() %}
             <h3>{{ day.capitalize() }}</h3>
             <div id="{{ day }}-slots">
                 {% for slot_form in form[day] %}
                     <div>
-                        {{ slot_form.day }}
+                        <p>Available: 
+                            {% for slot in slots %}
+                                {{ slot[0].strftime('%H:%M') }} - {{ slot[1].strftime('%H:%M') }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
                         {{ slot_form.start_time.label }} {{ slot_form.start_time }}
                         {{ slot_form.end_time.label }} {{ slot_form.end_time }}
                     </div>
                 {% endfor %}
             </div>
         {% endfor %}
-        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         {{ form.submit() }}
     </form>
 </div>
