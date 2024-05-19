@@ -24,8 +24,10 @@ def CheckOverlap(IdAvaliability,MembersNeeded,hoursneeded):
                 if not(len(Times[i+j][1]) >= MembersNeeded):
                     works = False
             if works:
-                output.append([Times[i]])
-    return output
+                if len(str(Times[i][0])) != 4:
+                    Times[i][0] = "0" + Times[i][0]
+                return [Times[i][0],members]
+    return []
 
 
 print(CheckOverlap([[1,"18:00:00.00000","21:45:00.000000"],[2,"00:15:00.000000","22:30:00.000000"]],2,2))
