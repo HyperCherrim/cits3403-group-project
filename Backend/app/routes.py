@@ -5,7 +5,7 @@ from app import app, db, login
 import sqlalchemy as alchemy
 from TimeLineUp import CheckOverlap
 
-from app.models import Users, Groups, TimeSlot
+from app.models import Users, Groups, TimeSlot, ReplyMessages
 from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm, replyForm
 from datetime import time
 
@@ -118,6 +118,7 @@ def submitResponse(groupID):
 
     elif request.method == "POST":
         if respondingForm.validate_on_submit():
+            foundGroupTime = []
             for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
                 for slot in getattr(respondingForm, day).entries:
                     start_time = time.fromisoformat(slot.start_time.data)
@@ -149,13 +150,26 @@ def submitResponse(groupID):
                 db.session.commit()
 
                 time_ranges = db.session.execute(alchemy.select(TimeSlot).where(TimeSlot.groupID == groupID)).scalars().all()
-
                 for time_range in time_ranges:
                     people = []
                     if time_range.day == day:
                         people.append([time_range.userID,str(time_range.start_time),str(time_range.end_time)])
-                        CheckOverlap(people,groupObj.requiredStudents,groupObj.numberOfHours)
-                        
+                        tmp = CheckOverlap(people,groupObj.requiredStudents,groupObj.numberOfHours)
+                        if tmp != []:
+                            tmp[0] = day + "," + tmp[0]
+                            foundGroupTime.append(tmp)
+            if foundGroupTime != []:
+                others = foundGroupTime[0]
+                time = others[0]
+                peple = ','.join(str(x) for x in others[1])
+                newReply = ReplyMessages(
+                    userID=loggedInUserID,
+                    groupID=groupID,
+                    otherUsers=peple,
+                    timeStart=time
+                )
+                db.session.add(new_slot)
+            db.session.commit()
             flash('Response submitted successfully!', 'success')
             return redirect(url_for("index"))
 
