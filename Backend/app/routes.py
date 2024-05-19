@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
 import sqlalchemy as alchemy
+from TimeLineUp import CheckOverlap
 
 from app.models import Users, Groups, TimeSlot
 from app.forms import userLogin, userRegister, submitTimes, TimeSlotForm, WeekForm, replyForm
@@ -146,6 +147,15 @@ def submitResponse(groupID):
                         )
                         db.session.add(new_slot)
                 db.session.commit()
+
+                time_ranges = db.session.execute(alchemy.select(TimeSlot).where(TimeSlot.groupID == groupID)).scalars().all()
+
+                for time_range in time_ranges:
+                    people = []
+                    if time_range.day == day:
+                        people.append([time_range.userID,str(time_range.start_time),str(time_range.end_time)])
+                        CheckOverlap(people,groupObj.requiredStudents,groupObj.numberOfHours)
+                        
             flash('Response submitted successfully!', 'success')
             return redirect(url_for("index"))
 
