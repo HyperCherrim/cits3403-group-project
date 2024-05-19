@@ -25,6 +25,8 @@ def createGroup():
     loggedInUserID = 0
     if current_user.is_authenticated:
         loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+    else:
+        return redirect(url_for('user_login'))
     form = WeekForm()
     print("hello 1")
     if form.validate_on_submit():
@@ -56,7 +58,8 @@ def createGroup():
             tagThree=form.groupTag3.data,
             description=form.description.data,
             requiredStudents=form.requiredStudents.data,
-            members=groupStr
+            members=groupStr,
+            numberOfHours=form.requiredStudents.data
         )
         db.session.add(group)
         db.session.commit()
