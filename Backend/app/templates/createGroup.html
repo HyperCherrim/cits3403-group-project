@@ -26,7 +26,7 @@
         <div>
             {{ form.requiredStudents.label }} {{ form.requiredStudents }}
         </div>
-        <br>
+
         {% for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
             <h3>{{ day.capitalize() }}</h3>
             <div id="{{ day }}-slots">
@@ -35,8 +35,6 @@
                         {{ slot_form.day }}
                         {{ slot_form.start_time.label }} {{ slot_form.start_time }}
                         {{ slot_form.end_time.label }} {{ slot_form.end_time }}
-                        <br>
-                        <br>
                     </div>
                 {% endfor %}
             </div>
@@ -55,12 +53,12 @@
     <div class="calendar">
     
         <header>
-            <div class="calendar__title">
+            <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
             <div class="icon secondary chevron_left">‹</div>
-            <h1 id="calendar_title_text">22 APRIL – 28 APRIL 2024</h1>
+            <h1 class="" style="flex: 1;">22 APRIL – 28 APRIL 2024</h1>
             <div class="icon secondary chevron_left">›</div>
             </div> 
-            <div id="calendar_header"></div>
+            <div style="align-self: flex-start; flex: 0 0 1"></div>
         </header>
         
         <div class="outer">
