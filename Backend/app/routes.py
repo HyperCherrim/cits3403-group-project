@@ -12,8 +12,9 @@ from datetime import time
 def index():
     availableGroups = Groups.query.all()
     user = Users.query.all()
+    # loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     units = db.session.query(Groups.tagOne).order_by(alchemy.desc(Groups.tagOne)).all()
-    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units)
+    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units,userID = loggedInUserID)
 
 @login_required
 @app.route('/createGroup', methods=['GET', 'POST'])

@@ -51,7 +51,7 @@
                         <li>----------------------</li>
                         <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
                         {% if current_user.is_authenticated %}
-                        <li><a class="dropdown-item" href='{{ url_for("user_page",userID=current_user.userID) }}'>My
+                        <li><a class="dropdown-item" href='{{ url_for("user_page",userID=loggedInUserID) }}'>My
                                 Account</a>
                             {% else %}
                         <li><b class="dropdown-item disable">My Account</b>
