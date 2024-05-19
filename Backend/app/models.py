@@ -63,9 +63,13 @@ class TimeSlot(db.Model):
     def __repr__(self):
         return f"<TimeSlot(day={self.day}, start_time={self.start_time}, end_time={self.end_time})>"
       
-# class ReplyMessages(db.Model):
-#     messageID: so.Mapped[int] = so.mapped_column(primary_key=True)
-#     userID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.userID))
+class ReplyMessages(db.Model):
+    replyID: so.Mapped[int] = so.mapped_column(primary_key=True)
+    userID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.userID))
+    groupID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Groups.groupID), index=True)
+    otherUsers: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
+    timeStart: so.Mapped[str] = so.mapped_column(sa.String(128))
+
 #     # Also link to GroupReply - one user can reply to many groups, but one reply belongs to one user?
 #     requestID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Groups.groupID)) # Group ID
 #     message: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
