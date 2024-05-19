@@ -27,7 +27,8 @@
     <!-- Set up the navbar -->
     <nav class="navbar navbar-expand-lg fixed-top sticky-top navbarColouring">
         <div class="container-fluid"> <!-- container for the navigation bar -->
-            <a class="navbar-brand navbar-text" href='{{ url_for("index") }}' style="margin-left:30px">Study Group Organiser</a>
+            <a class="navbar-brand navbar-text" href='{{ url_for("index") }}' style="margin-left:30px">Study Group
+                Organiser</a>
             <!-- Shrink the menu to a dropdown on smaller screens -->
             <button class="navbar-toggler" data-toggle="collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapsedMenu" aria-controls="collapsedMenu" aria-expanded="false"
@@ -35,36 +36,38 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsedMenu"> <!-- items to collapse-->
-                <div class="container-fluid justify-content-center w-50">
-                    <form class="d-flex justify-content-center">
-                        <input class="form-control me-2" type="text" placeholder="Enter unit code here: ">
-                        <button class="btn btn-primary" type="button">Search!</button>
-                    </form>
-                </div>
                 <div class="ms-auto btn-group">
                     {% if current_user.is_authenticated %}
-                    <button class="btn btn-primary nav-link dropdown-toggle" type="button"
-                        data-bs-toggle="dropdown">{{ current_user.fullName }}</button>
+                    <button class="btn btn-primary nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown">{{
+                        current_user.fullName }}</button>
                     {% else %}
                     <button class="btn btn-primary nav-link dropdown-toggle" type="button"
                         data-bs-toggle="dropdown">Account Options</button>
                     {% endif %}
                     <ul class="dropdown-menu">
                         {% if current_user.is_authenticated %}
-                        <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
-                        <li><a class="dropdown-item" href='{{ url_for("user_page")}}'>My Account</a>
+                            <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
+                            <li><a class="dropdown-item" href='{{ url_for("user_page",userID=userID) }}'>MyAccount</a></li>
+                            <!-- When logged in, disable the "sign up" link and activate the "my account" link -->
                         {% else %}
                         <li><a class="dropdown-item" href='{{ url_for("user_login")}}'>Login</a></li>
                         <li><a class="dropdown-item" href='{{ url_for("user_creation") }}'>Sign Up</a></li>
                         {% endif %}
-                        <!-- When logged in, disable the "sign up" link and activate the "my account" link-->
+                        <!-- <li>----------------------</li>
+                        {% if current_user.is_authenticated %}
+                        {% if userID %}
+                        <li><a class="dropdown-item" href='{{ url_for("userLogout") }}'>Sign Out</a></li>
+                        <li><a class="dropdown-item" href='{{ url_for("user_page",userID=userID) }}'>MyAccount</a></li>
+                        {% endif %}
+                            {% else %}
+                            <li><a class="dropdown-item disable" href=''>Sign Out</a></li>
+                        <li><b class="dropdown-item disable" href=''>My Account</b></li>
+                            {% endif %} -->
                     </ul>
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-    </nav><!-- end of navbar-->
+    </nav><!-- end of navbar -->
 
     {% block content %}{% endblock %}
 
