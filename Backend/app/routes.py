@@ -147,7 +147,15 @@ def submitResponse(groupID):
                         )
                         db.session.add(new_slot)
                 db.session.commit()
-                print(CheckOverlap([[1,"18:00:00.00000","21:45:00.000000"],[2,"00:15:00.000000","22:30:00.000000"]],2,2))
+
+                time_ranges = db.session.execute(alchemy.select(TimeSlot).where(TimeSlot.groupID == groupID)).scalars().all()
+
+                for time_range in time_ranges:
+                    people = []
+                    if time_range.day == day:
+                        people.append([time_range.userID,str(time_range.start_time),str(time_range.end_time)])
+                        CheckOverlap(people,groupObj.requiredStudents,groupObj.numberOfHours)
+                        
             flash('Response submitted successfully!', 'success')
             return redirect(url_for("index"))
 

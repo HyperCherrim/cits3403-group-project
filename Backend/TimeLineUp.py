@@ -1,11 +1,7 @@
 def CheckOverlap(IdAvaliability,MembersNeeded,hoursneeded):
     #The following piece of code makes a list of all times split into 15 min incraments
     Times = []
-    Times.append(["0000",[]])
-    Times.append(["0015",[]])
-    Times.append(["0030",[]])
-    Times.append(["0045",[]])
-    for hour in range(1,24):
+    for hour in range(0,24):
         for min in ["00","15","30","45"]:
             Times.append([(str(hour) + min),[]])
 
