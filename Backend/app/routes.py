@@ -104,9 +104,10 @@ def submitResponse(groupID):
             .join(Groups, (Groups.groupID == TimeSlot.groupID) & (Groups.userID == TimeSlot.userID))
             .distinct()
         ).all()
+    groupDesc = db.session.scalar(alchemy.select(Groups.description).where(Groups.groupID == groupID))
     loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     if request.method == "GET":
-        return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, timeslots=days)
+        return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, timeslots=days, groupDesc=groupDesc)
     elif request.method == "POST":
         if respondingForm.validate_on_submit():
             for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
@@ -184,14 +185,15 @@ def user_page():
     username = current_user.userName
     loggedInUser = db.session.scalar(alchemy.select(Users.userID).where(Users.userName == current_user.userName))
     userGroups = str(db.session.scalar(alchemy.select(Users.groupMembership).where(loggedInUser == Users.userID)))
+    print("Userpage Groups: {}".format(userGroups))
     availableGroups = {}
     groupNames = []
-    print("Groups: {}".format(db.session.scalar(alchemy.select(Users.groupMembership).where(loggedInUser == Users.userID))))
-
     index = 0
-    print("Userpage Groups: {}".format(userGroups))
-    if userGroups is None:
-        availableGroups = "User is not a member of any groups!"
+    print(userGroups == "None")
+    if userGroups == "None":
+        groupNames = "User is not a member of any groups!"
+        print(groupNames)
+
     else:
         print("Usergroups: {}".format(userGroups))
         groupMembership = userGroups.split("---")
@@ -205,9 +207,9 @@ def user_page():
                 emailList.append(studentEmail)
             availableGroups[groupTitle] = {"ID": item, "timedate":"placeholder", "emails":emailList}
             groupNames.append(groupTitle)
-        
-    print("Available Groups: {}".format(availableGroups))
+    print("Groupnames: {}".format(groupNames))
 
+    print("Available Groups: {}".format(availableGroups))
 
     #notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                     #  {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},

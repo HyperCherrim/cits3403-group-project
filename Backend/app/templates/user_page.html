@@ -10,18 +10,19 @@
     </div>
     <br>
     <br>
-    {% if groups %}
+    {% if groups == "User is not a member of any groups!" %}
+        <h3>User is not a member of any groups!</h3>"
+    {% elif groups %}
     <div class="row AllGroupsUserPage container-fluid">
-        {% if groups == "User is not a member of any groups!" %}
-            <h3>User is not a member of any groups!</h3>
-        {% else %}
+        
             {% for group in groups %}
+            <a href='{{ url_for("submitResponse", groupID=notifications[group]["ID"]) }}'>
                 <div class=" col oneGroupUserPage">
-                    <p>Test: {{ notifications[group]["ID"]}}</p>
-                    <a href='{{ url_for("submitResponse", groupID=notifications[group]["ID"]) }}'>{{ group }}</a>
+                    <h5>{{ group }}</h5>
+                    
                 </div>
+            </a>
             {% endfor %}
-        {% endif %}
     </div>
     {% else %}
     <p> looks like you havn't applied to any groups. Go to the home page to see interesting groups</p>
@@ -35,6 +36,7 @@
                 <h5 class="notificationTitle">{{ notification }}</h2> <br>
                 GROUP FORMED!
             </div>
+
             <div class="col emails">
                 <h6> Group members</h6>
                 {% for email in notifications[notification]["emails"] %}

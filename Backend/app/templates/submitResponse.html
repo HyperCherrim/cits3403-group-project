@@ -6,6 +6,7 @@
         {{ form.csrf_token }}
 
         <h2> Apply to join group {{ group.groupTitle }}</h2>
+        <p> {{ groupDesc }}</p>
         <p>
             {{ form.message.label }}
             {{ form.message(size=30) }}
