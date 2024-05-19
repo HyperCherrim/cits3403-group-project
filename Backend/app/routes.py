@@ -182,9 +182,12 @@ def user_login():
         return redirect(url_for('index'))
     return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/login.css",jsFile="../static/main.js",userID = loggedInUserID)
 
-  @app.route('/about')
+@app.route('/about')
 def about():
-    return render_template("about.html",title="About Us")
+    loggedInUserID = 0
+    if current_user.is_authenticated:
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+    return render_template("about.html",title="About Us",userID = loggedInUserID)
   
   
 @app.route('/logout')
