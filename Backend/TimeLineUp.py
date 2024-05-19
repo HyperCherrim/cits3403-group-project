@@ -20,9 +20,13 @@ def CheckOverlap(IdAvaliability,MembersNeeded,hoursneeded):
     for i in range(len(Times)-hoursneeded*4):
         works = True
         if len(Times[i][1]) >= MembersNeeded:
+            members = Times[i][1].copy
             for j in range(1,hoursneeded*4+1):
-                if not(len(Times[i+j][1]) >= MembersNeeded):
-                    works = False
+                    for member in members:
+                        if member not in Times[i+j][1]:
+                            members.remove(member)
+                    if members < MembersNeeded:
+                        works = False
             if works:
                 if len(str(Times[i][0])) != 4:
                     Times[i][0] = "0" + Times[i][0]
