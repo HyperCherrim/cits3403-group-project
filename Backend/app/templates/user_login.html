@@ -13,14 +13,14 @@
         <p> {{ form.studentUser.label }}
             {{ form.studentUser(size=100) }}
             {% for errorCode in errors %}
-            <span style="color:orange">{{ errorCode }}</span>
+            <span id="studentUser_error">{{ errorCode }}</span>
             {% endfor %}
         </p>
         <p>
             {{ form.studentPwd.label }}
             {{ form.studentPwd(size=48)}}
             {% for errorCode in errors %}
-            <span style="color:orange">{{ errorCode }}</span>
+            <span id="studentPwd_error">{{ errorCode }}</span>
             {% endfor %}
         </p>
         <p>
