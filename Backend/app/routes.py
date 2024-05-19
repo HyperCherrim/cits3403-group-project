@@ -12,12 +12,18 @@ from datetime import time
 def index():
     availableGroups = Groups.query.all()
     user = Users.query.all()
+    loggedInUserID = 0
+    if current_user.is_authenticated:
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     units = db.session.query(Groups.tagOne).order_by(alchemy.desc(Groups.tagOne)).all()
-    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units)
+    return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units,userID = loggedInUserID)
 
 @login_required
 @app.route('/createGroup', methods=['GET', 'POST'])
 def createGroup():
+    loggedInUserID = 0
+    if current_user.is_authenticated:
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     form = WeekForm()
     print("hello 1")
     if form.validate_on_submit():
@@ -35,10 +41,12 @@ def createGroup():
                 if not start_time == end_time:
                     if start_time > end_time:
                         flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
-                        return render_template('createGroup.html', form=form)
+
+                        return render_template('createGroup.html', form=form,userID = loggedInUserID)
         groupList = []
         groupList.append(str(loggedInUserID))
         groupStr = "---".join(groupList)
+
         group = Groups(
             userID=loggedInUserID,  # This should be dynamically set, e.g., from the logged-in user
             groupTitle=form.groupTitle.data,
@@ -62,7 +70,7 @@ def createGroup():
                 if not start_time == end_time:
                     if start_time > end_time:
                         flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
-                        return render_template('createGroup.html', form=form)
+                        return render_template('createGroup.html', form=form,userID = loggedInUserID)
                     new_slot = TimeSlot(
                         userID=loggedInUserID,
                         groupID=group.groupID,
@@ -74,12 +82,13 @@ def createGroup():
             db.session.commit()
         flash('Time slots and group saved!', 'success')
         return redirect(url_for('index'))
-    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form)
+    return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form,userID = loggedInUserID)
 
 
 @app.route('/submitResponse/<int:groupID>', methods=["GET", "POST"])
 @login_required
 def submitResponse(groupID):
+
     loggedInUserID = db.session.scalar(
         alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     groupObj = db.session.scalar(alchemy.select(Groups).where(Groups.groupID == groupID))
@@ -97,7 +106,7 @@ def submitResponse(groupID):
         available_times[time_range.day].append((time_range.start_time, time_range.end_time))
 
     if request.method == "GET":
-        return render_template("submitResponse.html", title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
+        return render_template("submitResponse.html", title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times,userID = loggedInUserID)
 
     elif request.method == "POST":
         if respondingForm.validate_on_submit():
@@ -109,7 +118,7 @@ def submitResponse(groupID):
                     if not start_time == end_time:
                         if start_time > end_time:
                             flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
-                            return render_template('submitResponse.html', title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
+                            return render_template('submitResponse.html', title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times,userID = loggedInUserID)
 
                         # Validate if the times are within the group's available times
                         valid_time = False
@@ -119,7 +128,7 @@ def submitResponse(groupID):
                                 break
                         if not valid_time:
                             flash(f'Time slot {start_time} - {end_time} is not within the available times for {day.capitalize()}.', 'danger')
-                            return render_template('submitResponse.html', title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
+                            return render_template('submitResponse.html', title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times,userID = loggedInUserID)
 
                         new_slot = TimeSlot(
                             userID=loggedInUserID,
@@ -133,11 +142,13 @@ def submitResponse(groupID):
             flash('Response submitted successfully!', 'success')
             return redirect(url_for("index"))
 
-    return render_template("submitResponse.html", title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
-
+    return render_template("submitResponse.html", title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times,userID = loggedInUserID)
 
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():
+    loggedInUserID = 0
+    if current_user.is_authenticated:
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     regform = userRegister()
@@ -148,10 +159,13 @@ def user_creation():
         db.session.commit()
         flash("Registration successful!")
         return redirect(url_for('user_login'))
-    return render_template("user_creation.html",title="Register Account - Study Group Organiser",form=regform,cssFile="../static/user_creation.css",jsFile="../static/main.js")
+    return render_template("user_creation.html",title="Register Account - Study Group Organiser",form=regform,cssFile="../static/user_creation.css",jsFile="../static/main.js",userID = loggedInUserID)
 
 @app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
+    loggedInUserID = 0
+    if current_user.is_authenticated:
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     if current_user.is_authenticated == True:
         return redirect(url_for('index'))
     form = userLogin()
@@ -162,7 +176,7 @@ def user_login():
             return redirect(url_for('user_login'))
         login_user(user)
         return redirect(url_for('index'))
-    return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/login.css",jsFile="../static/main.js")
+    return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/login.css",jsFile="../static/main.js",userID = loggedInUserID)
 
 @app.route('/logout')
 @login_required
@@ -172,10 +186,14 @@ def userLogout():
 
 @app.route('/user/<int:userID>')
 @login_required
-def user_page():
+def user_page(userID):
+    loggedInUserID = 0
+    if current_user.is_authenticated:
+        loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     username = current_user.userName
     #groups = db.session.scalar(alchemy.select(Groups)
     groups = Groups.query.all()
+
     notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"team all the marks", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
@@ -185,7 +203,7 @@ def user_page():
     # notifications = []
 
 
-    return render_template("user_page.html",title=username, user=username, groups=groups, cssFile="../static/userpage.css" ,notifications=notifications)
+    return render_template("user_page.html",title=username, user=username, groups=groups, cssFile="../static/userpage.css" ,notifications=notifications,userID = loggedInUserID)
 
 
 
