@@ -26,7 +26,9 @@
         <div>
             {{ form.requiredStudents.label }} {{ form.requiredStudents }}
         </div>
-
+        <div>
+            {{ form.numberOfHours.label }} {{ form.numberOfHours }}
+        </div>
         {% for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
             <h3>{{ day.capitalize() }}</h3>
             <div id="{{ day }}-slots">

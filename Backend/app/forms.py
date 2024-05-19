@@ -89,6 +89,7 @@ class WeekForm(form):
     description = StringField("Description / Reason For Study Group: ")
     groupRequestSubmition = SubmitField("Submit Group Request")
     requiredStudents = IntegerField("Enter number of required students: ", validators=[NumberRange(min=1, max=10, message="Too many/not enough students")])
+    numberOfHours = IntegerField("Enter number of required hours for study: ", validators=[NumberRange(min=1, max=23, message="Too much/not enough time")])
     monday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3) #needs to pared with other fields to be safe 
     tuesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
     wednesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
