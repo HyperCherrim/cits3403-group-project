@@ -38,8 +38,8 @@ def createGroup():
         # Save the TimeSlot instances
         for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
             for slot in getattr(form, day).entries:
-                start_time = time.fromisoformat(slot.start_time.data)
-                end_time = time.fromisoformat(slot.end_time.data)
+                start_time = TimeDay.fromisoformat(slot.start_time.data)
+                end_time = TimeDay.fromisoformat(slot.end_time.data)
                 print(start_time)
                 print(start_time >= end_time)
                 if not start_time == end_time:
@@ -68,8 +68,8 @@ def createGroup():
         # Save the TimeSlot instances
         for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
             for slot in getattr(form, day).entries:
-                start_time = time.fromisoformat(slot.start_time.data)
-                end_time = time.fromisoformat(slot.end_time.data)
+                start_time = TimeDay.fromisoformat(slot.start_time.data)
+                end_time = TimeDay.fromisoformat(slot.end_time.data)
                 print(start_time)
                 print(start_time >= end_time)
                 if not start_time == end_time:
@@ -240,6 +240,15 @@ def user_page(userID):
     username = current_user.userName
     #groups = db.session.scalar(alchemy.select(Groups)
     groups = Groups.query.all()
+
+    # notifications = []
+    # NotificationBase = db.session.scalars(alchemy.select(ReplyMessages.replyID,ReplyMessages.userID,ReplyMessages.otherUsers,ReplyMessages.groupID,ReplyMessages.timeStart).where(ReplyMessages.userID == loggedInUserID or int(loggedInUserID) in (",".split(ReplyMessages.otherUsers)))).all()
+    # for notification in NotificationBase:
+    #     userEmail = db.session.scalars(alchemy.select(Users.userEmail).where(Users.userID == notification.userID or Users.userID in notification.otherUsers)).all()
+    #     title = db.session.scalar(alchemy.select(Groups.groupTitle).where(Groups.groupID == notification.groupID))
+    #     tempNotification = {"Title":title,"timedate":notification.timeStart,"emails":userEmail}
+    #     notifications.append(tempNotification)
+
 
     notifications = [{"Title":"CITS:2200 exam", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
                      {"Title":"Book club", "timedate":["31st at 0100-0800","19th at 1100-2100"],"emails":["23631345@student.uwa.edu.au","12345678@email.com.au"]},
