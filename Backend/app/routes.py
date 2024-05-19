@@ -1,3 +1,4 @@
+
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, login
@@ -84,6 +85,9 @@ def createGroup():
         return redirect(url_for('index'))
     return render_template("createGroup.html",title="Create a Group - Study Group Organiser",cssFile="../static/main.css",jsFile="../static/populateTable.js", form=form,userID = loggedInUserID)
 
+@app.route('/password_reset')
+def password_reset():
+    return render_template("password_reset.html",title="Reset Password",cssFile="../static/password_reset.css",jsFile="../static/main.js")
 
 @app.route('/submitResponse/<int:groupID>', methods=["GET", "POST"])
 @login_required
@@ -144,6 +148,7 @@ def submitResponse(groupID):
 
     return render_template("submitResponse.html", title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times,userID = loggedInUserID)
 
+
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():
     loggedInUserID = 0
@@ -171,17 +176,21 @@ def user_login():
     form = userLogin()
     if form.validate_on_submit() == True:
         user = db.session.scalar(alchemy.select(Users).where(Users.userName == form.studentUser.data))
-        if user is None or not user.getPassword(form.studentPwd.data):
+        if user == None or not user.getPassword(form.studentPwd.data):
             flash("Invalid login details")
-            return redirect(url_for('user_login'))
         login_user(user)
         return redirect(url_for('index'))
     return render_template("user_login.html",title="Log In - Study Group Organiser",form=form,cssFile="../static/login.css",jsFile="../static/main.js",userID = loggedInUserID)
 
+  @app.route('/about')
+def about():
+    return render_template("about.html",title="About Us")
+  
+  
 @app.route('/logout')
-@login_required
 def userLogout():
     logout_user()
+
     return(redirect(url_for('index')))
 
 @app.route('/user/<int:userID>')
@@ -215,3 +224,4 @@ def getID(userID):
 def unauthorisedError(error):
     flash("You are not signed in!")
     return redirect(url_for("user_login"))
+
