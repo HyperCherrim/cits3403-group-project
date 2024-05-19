@@ -187,7 +187,7 @@ def userLogout():
 @app.route('/user/<int:userID>')
 @login_required
 def user_page(userID):
-   loggedInUserID = 0
+    loggedInUserID = 0
     if current_user.is_authenticated:
         loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     username = current_user.userName
