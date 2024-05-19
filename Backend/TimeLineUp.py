@@ -34,4 +34,8 @@ def CheckOverlap(IdAvaliability,MembersNeeded,hoursneeded):
     return []
 
 
-print(CheckOverlap([[1,"18:00:00.00000","21:45:00.000000"],[2,"00:15:00.000000","22:30:00.000000"]],2,2))
+print()
+
+[[1, '01:00:00', '07:30:00'],]
+2
+2
