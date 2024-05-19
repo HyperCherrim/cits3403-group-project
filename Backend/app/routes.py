@@ -18,6 +18,7 @@ def index():
     units = db.session.query(Groups.tagOne).order_by(alchemy.desc(Groups.tagOne)).all()
     return render_template("index.html",title="Study Group Organiser Application",user=user,groups=availableGroups,cssFile="../static/index.css",jsFile="../static/main.js", units=units)
 
+@login_required
 @app.route('/createGroup', methods=['GET', 'POST'])
 @login_required
 def createGroup():
@@ -93,31 +94,48 @@ def createGroup():
 @app.route('/submitResponse/<int:groupID>', methods=["GET", "POST"])
 @login_required
 def submitResponse(groupID):
-    print("Do you hear me?")
-    loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+    loggedInUserID = db.session.scalar(
+        alchemy.select(Users.userID).where(current_user.userName == Users.userName))
     groupObj = db.session.scalar(alchemy.select(Groups).where(Groups.groupID == groupID))
     respondingForm = replyForm()
-    timeslots = db.session.scalar(alchemy.select(TimeSlot).where(groupID == TimeSlot.groupID).where(Groups.userID == TimeSlot.userID))
-    specifiedGroupObject = db.session.scalar(alchemy.select(Groups).where(groupID == Groups.groupID))
 
-    days = db.session.scalars(alchemy.select(TimeSlot.day)
-            .join(Groups, (Groups.groupID == TimeSlot.groupID) & (Groups.userID == TimeSlot.userID))
-            .distinct()
-        ).all()
+    # Fetch available time ranges for the group
+    time_ranges = db.session.execute(
+        alchemy.select(TimeSlot)
+        .where(TimeSlot.groupID == groupID)
+    ).scalars().all()
+
+    # Organize time ranges by day
+    available_times = {day: [] for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}
+    for time_range in time_ranges:
+        available_times[time_range.day].append((time_range.start_time, time_range.end_time))
     groupDesc = db.session.scalar(alchemy.select(Groups.description).where(Groups.groupID == groupID))
-    loggedInUserID = db.session.scalar(alchemy.select(Users.userID).where(current_user.userName == Users.userName))
+
     if request.method == "GET":
-        return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, timeslots=days, groupDesc=groupDesc)
+        return render_template("submitResponse.html", title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
+
     elif request.method == "POST":
         if respondingForm.validate_on_submit():
             for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
                 for slot in getattr(respondingForm, day).entries:
                     start_time = time.fromisoformat(slot.start_time.data)
                     end_time = time.fromisoformat(slot.end_time.data)
+
                     if not start_time == end_time:
                         if start_time > end_time:
                             flash(f'End time must be after start time for {day.capitalize()}.', 'danger')
-                            return render_template('createGroup.html', form=respondingForm)
+                            return render_template('submitResponse.html', title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
+
+                        # Validate if the times are within the group's available times
+                        valid_time = False
+                        for available_start, available_end in available_times[day]:
+                            if start_time >= available_start and end_time <= available_end:
+                                valid_time = True
+                                break
+                        if not valid_time:
+                            flash(f'Time slot {start_time} - {end_time} is not within the available times for {day.capitalize()}.', 'danger')
+                            return render_template('submitResponse.html', title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
+
                         new_slot = TimeSlot(
                             userID=loggedInUserID,
                             groupID=groupID,
@@ -127,6 +145,8 @@ def submitResponse(groupID):
                         )
                         db.session.add(new_slot)
                 db.session.commit()
+            flash('Response submitted successfully!', 'success')
+
             
             currentMembership = db.session.scalar(alchemy.select(Users).where(loggedInUserID == Users.userID))
             if currentMembership is None:
@@ -143,7 +163,8 @@ def submitResponse(groupID):
             db.session.query(Groups).filter(Groups.groupID == groupID).update({"members": newString})
             db.session.commit()
         return redirect(url_for("index"))
-    #return render_template("submitResponse.html",title="Apply to Join Group",cssFile="../static/responding_request.css",jsFile="../static/main.js", form=respondingForm, groupID=groupID)
+    return render_template("submitResponse.html", title="Apply to Join Group", cssFile="../static/responding_request.css", jsFile="../static/main.js", form=respondingForm, groupID=groupID, group=groupObj, available_times=available_times)
+
 
 @app.route('/user_creation', methods=['GET', 'POST'])
 def user_creation():
@@ -179,7 +200,7 @@ def userLogout():
     logout_user()
     return(redirect(url_for('index')))
 
-@app.route('/user')
+@app.route('/user/<int:userID>')
 @login_required
 def user_page():
     username = current_user.userName

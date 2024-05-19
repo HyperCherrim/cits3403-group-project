@@ -34,12 +34,6 @@ class Users(UserMixin, db.Model):
     def get_id(self):
         return(self.userID)
 
-class TimeRange(db.Model):
-    ID: so.Mapped[int] = so.mapped_column(primary_key=True)
-    groupID: so.Mapped[str] = so.mapped_column(sa.ForeignKey(Users.userID), index=True)
-    day = db.Column(db.String(10), nullable=True)
-    start_time = db.Column(db.Time, nullable=True)
-    stop_time = db.Column(db.Time, nullable=True)
 
 class Groups(db.Model):
     groupID: so.Mapped[int] = so.mapped_column(primary_key=True)
