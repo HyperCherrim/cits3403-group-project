@@ -23,6 +23,9 @@
         <div>
             {{ form.description.label }} {{ form.description }}
         </div>
+        <div>
+            {{ form.requiredStudents.label }} {{ form.requiredStudents }}
+        </div>
 
         {% for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
             <h3>{{ day.capitalize() }}</h3>

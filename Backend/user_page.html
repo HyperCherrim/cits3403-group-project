@@ -15,7 +15,10 @@
         {% for group in groups %}
 
             <div class=" col oneGroupUserPage">
-                <a href='{{ url_for("submitResponse", groupID=group.groupID)}}'>{{ group.groupTitle }}</a>
+                <form action="/submitResponse/{{ group.id }}" method="post">
+                    <p>{{ group.groupTitle }}</p>
+                    <input type="submit" value="Submit Request to Join">
+                </form>
             </div>
         {% endfor %}
     </div>

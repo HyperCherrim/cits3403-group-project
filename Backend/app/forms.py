@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm as form
 from wtforms import StringField, PasswordField, SubmitField, DateTimeField, IntegerField, DateField, BooleanField, FieldList, FormField, HiddenField, TimeField, SelectField
-from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
+from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError, NumberRange
 import sqlalchemy as alchemy
 from app import db
-from app.models import Users, Groups, ReplyMessages, TimeSlot
+from app.models import Users, Groups, TimeSlot
 from datetime import time
 
 class userRegister(form):
@@ -88,7 +88,7 @@ class WeekForm(form):
     groupTag3 = StringField("Third Group Tag: ")
     description = StringField("Description / Reason For Study Group: ")
     groupRequestSubmition = SubmitField("Submit Group Request")
-    
+    requiredStudents = IntegerField("Enter number of required students: ", validators=[NumberRange(min=1, max=10, message="Too many/not enough students")])
     monday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3) #needs to pared with other fields to be safe 
     tuesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
     wednesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
@@ -96,7 +96,6 @@ class WeekForm(form):
     friday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
     saturday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
     sunday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
-
     submit = SubmitField('Save')
 # /////////////////////////////////////////////////////////////////////////////
 
@@ -106,3 +105,14 @@ class submitTimes(form):
         userName = db.session.scalar(alchemy.select(Groups).where(Groups.username == groupTitle.data))
         if userName is not None:
             raise ValidationError("Group name is already taken, please try another.")
+
+class replyForm(form):
+    message = StringField("Enter message to group (optional): ")
+    monday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3) #needs to pared with other fields to be safe 
+    tuesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
+    wednesday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
+    thursday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
+    friday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
+    saturday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
+    sunday = FieldList(FormField(TimeSlotFormNoCsrf), min_entries=1, max_entries=3)
+    submit = SubmitField("Submit Response")
